@@ -31,7 +31,6 @@ function mainPositioning(){
 	btnBar.style.top = (h - 60) + "px";
 	btnBar.style.width = "100%";
 	btnBar.style.height = "60px";
-	btnBar.style.outline = "1px solid blue";
 	btnBar.style.display = "flex";
 	btnBar.style.justifyContent = "space-evenly";
 	btnBar.style.color = "#444";
@@ -42,14 +41,12 @@ function mainPositioning(){
 	statusBar.style.top = "0px";
 	statusBar.style.width = "100%";
 	statusBar.style.height = "10px";
-	statusBar.style.outline = "1px solid green";
 
 	mainScreen.style.position = "absolute";
 	mainScreen.style.width = (w - 20) + "px";
 	mainScreen.style.height = (h - 60 - 10) + "px";
 	mainScreen.style.left = "10px";
 	mainScreen.style.top = (10) + "px";
-	mainScreen.style.outline = "1px solid orange";
 	mainScreen.style.color = "#444"
 	mainScreen.data = mainScreen.getBoundingClientRect();
 }
