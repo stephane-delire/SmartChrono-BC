@@ -1,0 +1,13 @@
+-Fonctionnalité de démarrage/arrêt du chronomètre: L'utilisateur peut démarrer et arrêter le chronomètre manuellement pour mesurer le temps consacré à une tâche particulière.
+
+-Association de tâches: L'utilisateur peut associé chaque temps de démarrage/arrêt du chronomètre à une tâche particulière liée à un projet.
+
+-Enregistrement des données: Les données du temps mesuré pour chaque tâche sont enregistrées sur le téléphone de l'utilisateur et peuvent être envoyées à un serveur pour une utilisation ultérieure.
+
+-Génération de timesheets: Les données enregistrées peuvent être utilisées pour générer automatiquement des timesheets.
+
+-Analyse des temps: Les données enregistrées peuvent être analysées pour mesurer les temps consacrés à des tâches particulières et à des projets spécifiques.
+
+-Facturation automatique: Les données enregistrées peuvent être utilisées pour générer automatiquement des factures pour les heures prestées.
+
+Cette application est destinée à toutes les personnes souhaitant suivre et comptabiliser le temps consacré à des projets spécifiques, comme les avocats qui se font payer à l'heure et les informaticiens.

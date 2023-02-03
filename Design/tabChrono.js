@@ -92,11 +92,15 @@ function tabChrono(){
 	startBtn.style.width = "75px";
 	startBtn.style.height = "75px";
 	startBtn.style.borderRadius = "50%";
+	startBtn.setAttribute("id", "initBtnChrono");
 
 	//Append DOMs
 	divStartBtn.append(startBtn);
 
 	mainScreen.append(divStartBtn);
+
+	//Add Event listener
+	document.getElementById("initBtnChrono").addEventListener("click", initChrono);
 
 }
 
