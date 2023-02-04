@@ -69,10 +69,26 @@ function startSync(){
 	const user_id = localStorage.getItem("USER_ID");
 	const post_link = localStorage.getItem("POST_LINK");
 	const record = localStorage.getItem("RECORD");
+	
+	const date = new Date();
+	var year = date.toLocaleString("default", {year: "numeric"});
+	var month = date.toLocaleString("default", {month: "2-digit"});
+	var day = date.toLocaleString("default", {day: "2-digit"});
+	var hour = date.toLocaleString("default", {hour: "2-digit"});
+	var minutes = date.toLocaleString("default", {minute: "2-digit"});
+	var fDate = day + "-" + month + "-" + year + " " + hour + ":" + minutes;
+
+	statusBar.style.color = 'green';
+	statusBar.innerHTML = "Creating packet"
+	var packet = {
+		"USER_ID": user_id,
+		"DATE": fDate
+	}
+
 
 	statusBar.style.color = 'white'
 	statusBar.innerHTML = "Opening HTTP Request";
+	xhttp = new XMLHttpRequest();
 
-	
 
 }

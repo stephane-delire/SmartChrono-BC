@@ -9,7 +9,10 @@ function saveChrono() {
 	var year = date.toLocaleString("default", {year: "numeric"});
 	var month = date.toLocaleString("default", {month: "2-digit"});
 	var day = date.toLocaleString("default", {day: "2-digit"});
-	var fDate = day + "-" + month + "-" + year;
+	var hour = date.toLocaleString("default", {hour: "2-digit"});
+	var minutes = date.toLocaleString("default", {minute: "2-digit"});
+	var fDate = day + "-" + month + "-" + year + " " + hour + ":" + minutes;
+
 
 	/*///////////////////////////////////////////////////*/
 	//Function to generate a random string 
@@ -51,6 +54,5 @@ function saveChrono() {
 	TASK = "";
 	//Return to tabChrono
 	tabChrono();
-
 
 }
