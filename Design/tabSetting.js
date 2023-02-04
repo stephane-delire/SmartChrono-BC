@@ -32,7 +32,7 @@ function tabSetting(){
 	txtUserId.innerHTML = "User ID";
 	txtUserId.style.marginTop = "10px";
 
-	inpUserId.setAttribute("id", "userID");
+	inpUserId.setAttribute("id", "inUserID");
 	inpUserId.setAttribute("type", "text");
 	inpUserId.style.width = "100%";
 	inpUserId.style.height = "40px";
@@ -62,7 +62,7 @@ function tabSetting(){
 	txtPostLink.innerHTML = "POST Link";
 	txtPostLink.style.marginTop = "10px";
 
-	inpPostLink.setAttribute("id", "postLink");
+	inpPostLink.setAttribute("id", "inPostLink");
 	inpPostLink.setAttribute("type", "text");
 	inpPostLink.style.width = "100%";
 	inpPostLink.style.height = "40px";
@@ -92,6 +92,7 @@ function tabSetting(){
 	divBtnRecordSetting.style.justifyContent = 'center';
 	divBtnRecordSetting.style.alignItems = 'center';
 
+	btnRecordSetting.setAttribute("id", "btnRecordSetting");
 	btnRecordSetting.innerHTML = saveSettingIco;
 	btnRecordSetting.style.display = "flex";
 	btnRecordSetting.style.justifyContent = 'center';
@@ -105,6 +106,13 @@ function tabSetting(){
 	//Append to DOMs
 	divBtnRecordSetting.append(btnRecordSetting);
 	divSetting.append(divBtnRecordSetting);
+
+	//Add click event
+	btnRecordSetting.addEventListener("click", saveSettings);
+
+	//try to retrieve settings if exist:
+	if (localStorage.getItem("USER_ID") != null) {inpUserId.value = localStorage.getItem("USER_ID")}
+	if (localStorage.getItem("POST_LINK") != null) {inpPostLink.value = localStorage.getItem("POST_LINK")}
 }
 
 /*////////////////////////////////////////////////////////*/
