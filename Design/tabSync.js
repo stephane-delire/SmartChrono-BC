@@ -28,6 +28,7 @@ function tabSync(){
 	divSyncMain.style.justifyContent = 'center';
 	divSyncMain.style.alignItems = 'center';
 
+	btnSync.setAttribute("id", "btnSync");
 	btnSync.style.width = "75px";
 	btnSync.style.height = "75px";
 	btnSync.style.backgroundColor = '#444';
@@ -37,10 +38,12 @@ function tabSync(){
 	btnSync.style.alignItems = "center";
 	btnSync.innerHTML = btnSyncProblemIco;
 
+	txtSync.setAttribute("id", "txtSync");
 	txtSync.style.color = "white";
 	txtSync.style.minHeight = "50px";
 	txtSync.style.marginTop = "30px";
 	txtSync.innerHTML = "Test";
+	txtSync.style.textAlign = 'center';
 
 
 
@@ -49,6 +52,8 @@ function tabSync(){
 	divSyncMain.append(txtSync);
 	mainScreen.append(divSyncMain);
 
+	//Execute testSync
+	testSync();
 
 }
 
