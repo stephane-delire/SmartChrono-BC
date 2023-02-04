@@ -41,6 +41,7 @@ function mainPositioning(){
 	statusBar.style.top = "0px";
 	statusBar.style.width = "100%";
 	statusBar.style.height = "10px";
+	statusBar.style.fontSize = "8px";
 
 	mainScreen.style.position = "absolute";
 	mainScreen.style.width = (w - 20) + "px";

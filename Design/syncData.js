@@ -16,7 +16,7 @@ function testSync(){
 	const record = localStorage.getItem("RECORD");
 	var err = 0;
 
-
+	// Check if settings exist
 	if (user_id == null) {console.error("USER_ID is null"); err++;}
 	if (post_link == null) {console.error("POST_LINK is null"); err++;}
 
@@ -46,5 +46,33 @@ function testSync(){
 		txtSync.innerHTML = 'The "POST_LINK" parameter does not appear to be valid. Please check your settings.';
 		return;
 	}
+
+	// Check if there are some record in pending
+	if (record == null || record == "") {
+		btnSync.innerHTML = btnSyncDone;
+		btnSync.style.color = "green";
+		txtSync.innerHTML = "No records awaiting synchronization.";
+		return;
+	}
+
+	else {
+		txtSync.innerHTML = "You have records ready waiting to be synchronized."
+		btnSync.innerHTML = btnSyncIco;
+		btnSync.style.color = 'black';
+		btnSync.addEventListener("click", startSync);
+	}
+}
+
+// sync -> Send data to serveur
+function startSync(){
+
+	const user_id = localStorage.getItem("USER_ID");
+	const post_link = localStorage.getItem("POST_LINK");
+	const record = localStorage.getItem("RECORD");
+
+	statusBar.style.color = 'white'
+	statusBar.innerHTML = "Opening HTTP Request";
+
+	
 
 }
