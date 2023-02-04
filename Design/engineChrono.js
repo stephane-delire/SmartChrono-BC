@@ -62,7 +62,7 @@ function pauseChrono(){
 	s.justifyContent = "center";
 	s.alignItems = 'center';
 	btnChronoSave.innerHTML = svgSaveIco;
-	//btnChronoSave.addEventListener("click", saveChrono);
+	btnChronoSave.addEventListener("click", saveChrono);
 
 	divBtnZone.append(btnChronoSave);
 

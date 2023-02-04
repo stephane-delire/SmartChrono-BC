@@ -51,7 +51,7 @@ function tabChrono(){
 	txtTaskName.style.textAlign = "center";
 
 	inpTaskName.setAttribute("type", "text");
-	inpTaskName.setAttribute("type", "inTaskName");
+	inpTaskName.setAttribute("id", "inTaskName");
 	inpTaskName.style.width = "100%";
 	inpTaskName.style.height = "40px";
 	inpTaskName.style.backgroundColor = "transparent";

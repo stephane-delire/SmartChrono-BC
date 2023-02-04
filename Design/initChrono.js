@@ -8,11 +8,16 @@ const svgDeleteIco = '<svg xmlns="http://www.w3.org/2000/svg" height="30" width=
 /*////////////////////////////////////////////////////////*/
 /*Init chrono*/
 
+var PROJECT = "";
+var TASK = "";
+
 function initChrono(){
+	//MUST RETRIEVE PROJECT and TASK
+	PROJECT = inProjectName.value;
+	TASK = inTaskName.value;
+
 	//Reset mainScreen
 	mainScreen.innerHTML = "";
-
-	//MUST RETRIEVE PROJECT and TASK
 
 	// Div general
 	const divGeneralChrono = document.createElement("div");
@@ -25,7 +30,7 @@ function initChrono(){
 
 	mainScreen.append(divGeneralChrono);
 
-	// Div numer zone
+	// Div number zone
 	const divNumberZone = document.createElement("div");
 	divNumberZone.setAttribute("id", "divNumberZone");
 	divNumberZone.innerHTML = "00:00:00";
