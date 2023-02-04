@@ -1,4 +1,4 @@
-// SVG for initChrono
+// SVG for initChrono/startChrono
 const svgPlayIco = '<svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" fill="currentColor" preserveAspectRatio="xMidYMid" viewBox="0 0 48 48"><path d="M16 37.85v-28l22 14Z"/></svg>'
 const svgSaveIco = '<svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" fill="currentColor" preserveAspectRatio="xMidYMid" viewBox="0 0 48 48"><path d="M42 13.85V39q0 1.2-.9 2.1-.9.9-2.1.9H9q-1.2 0-2.1-.9Q6 40.2 6 39V9q0-1.2.9-2.1Q7.8 6 9 6h25.15Zm-18 21.9q2.15 0 3.675-1.525T29.2 30.55q0-2.15-1.525-3.675T24 25.35q-2.15 0-3.675 1.525T18.8 30.55q0 2.15 1.525 3.675T24 35.75ZM11.65 18.8h17.9v-7.15h-17.9Z"/></svg>'
 const svgPauseIco = '<svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" fill="currentColor" preserveAspectRatio="xMidYMid" viewBox="0 0 48 48"><path d="M26.25 38V10H38v28ZM10 38V10h11.75v28Z"/></svg>'
@@ -27,14 +27,22 @@ function initChrono(){
 
 	// Div numer zone
 	const divNumberZone = document.createElement("div");
+	divNumberZone.setAttribute("id", "divNumberZone");
+	divNumberZone.innerHTML = "00:00:00";
 	var s = divNumberZone.style
-	s.minHeight = '30px';
-	s.backgroundColor = 'blue';
+	s.color = "orange";
+	s.minHeight = '100px';
+	s.maxHeight = '150px';
+	s.height = "20%";
+	s.textAlign = 'center';
 
 	divGeneralChrono.append(divNumberZone);
 
+	s.fontSize = divNumberZone.getBoundingClientRect().height * 0.5 + "px";
+
 	// Div btn zone
 	const divBtnZone = document.createElement("div");
+	divBtnZone.setAttribute("id", "divBtnZone");
 	var s = divBtnZone.style;
 	s.display = "flex";
 	s.flexDirection = "row";
@@ -56,6 +64,7 @@ function initChrono(){
 	s.justifyContent = "center";
 	s.alignItems = 'center';
 	btnChronoPlay.innerHTML = svgPlayIco;
+	btnChronoPlay.addEventListener("click", startChrono);
 
 	divBtnZone.append(btnChronoPlay);
 
@@ -71,4 +80,5 @@ function initChrono(){
 	s.alignItems = 'center';
 	btnChronoDelete.innerHTML = svgDeleteIco;
 	divBtnZone.append(btnChronoDelete);
+
 }
