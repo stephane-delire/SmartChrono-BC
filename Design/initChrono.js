@@ -16,6 +16,13 @@ function initChrono(){
 	PROJECT = inProjectName.value;
 	TASK = inTaskName.value;
 
+	if (PROJECT == "") {
+		navigator.vibrate;
+		inProjectName.style.borderColor = "red";
+		return;
+	}
+
+
 	//Reset mainScreen
 	mainScreen.innerHTML = "";
 
@@ -29,6 +36,8 @@ function initChrono(){
 	s.justifyContent = 'center';
 
 	mainScreen.append(divGeneralChrono);
+
+	// Div Chrono info
 
 	// Div number zone
 	const divNumberZone = document.createElement("div");
