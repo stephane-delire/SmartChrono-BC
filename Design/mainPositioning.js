@@ -52,8 +52,25 @@ function mainPositioning(){
 	mainScreen.data = mainScreen.getBoundingClientRect();
 }
 
-//Call the function once
+// For compiler :
+/*
+Wait for the deviceready event before using any of Cordova's device APIs.
+document.addEventListener('deviceready', onDeviceReady, false);
+
+function onDeviceReady() {
+    // Cordova is now initialized. Have fun!
+
+    mainPositioning();
+}
+*/
+
+
+// For design : 
 mainPositioning()
+
+
+
+
 //Add resize event
 window.addEventListener("resize", mainPositioning);
 ////////////////////////////////////////////////////////////
