@@ -1,6 +1,6 @@
 /*////////////////////////////////////////////////////////*/
 //Version
-localStorage.setItem("VERSION", "0.0.1");
+//localStorage.setItem("VERSION", "0.0.1");
 
 /*
 Note for later,
