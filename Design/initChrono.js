@@ -38,6 +38,21 @@ function initChrono(){
 	mainScreen.append(divGeneralChrono);
 
 	// Div Chrono info
+	const divChronoInfo = document.createElement("div");
+	var s = divChronoInfo.style;
+	s.color = "white";
+	s.marginBottom = "50px";
+	s.width = "100%";
+	s.top = "0px";
+	s.display = "flex";
+	s.justifyContent = 'center';
+	s.alignItems = 'center';
+	var genInfo = "<table><tr><td style='color:orange; font-weight:bold; text-align:right' >Project :</td><td>{project_name}</td></tr><tr><td style='color:orange; font-weight:bold; text-align:right' >Task :</td><td>{task_name}</td></tr></table>";
+	genInfo = genInfo.replace("{project_name}", PROJECT);
+	genInfo = genInfo.replace("{task_name}", TASK);
+	divChronoInfo.innerHTML = genInfo;
+
+	divGeneralChrono.append(divChronoInfo);
 
 	// Div number zone
 	const divNumberZone = document.createElement("div");
