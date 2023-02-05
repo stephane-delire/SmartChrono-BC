@@ -84,6 +84,8 @@ function initChrono(){
 	s.justifyContent = "center";
 	s.alignItems = 'center';
 	btnChronoDelete.innerHTML = svgDeleteIco;
+	btnChronoDelete.addEventListener("click", deleteChrono);
+
 	divBtnZone.append(btnChronoDelete);
 
 }

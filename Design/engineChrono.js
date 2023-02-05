@@ -78,6 +78,7 @@ function pauseChrono(){
 	s.justifyContent = "center";
 	s.alignItems = 'center';
 	btnChronoDelete.innerHTML = svgDeleteIco;
+	btnChronoDelete.addEventListener("click", deleteChrono);
 	
 	divBtnZone.append(btnChronoDelete);
 }
@@ -99,3 +100,9 @@ function engineChrono(){
 }
 //Interval
 setInterval(engineChrono, 1000);
+
+//deleteChrono
+function deleteChrono(){
+	duration = 0;
+	tabChrono();
+}
