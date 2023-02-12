@@ -28,5 +28,12 @@ const icoLink = {
 /*function for react*/
 export default function Icons(props) {
 	const Icon = icoLink[props.name];
-	return <SvgXml xml={Icon} width="30px" height="30px" viewBox="0 0 48 48" fill="#444"/>;
+
+	//Check for icon active (orange)
+	if (props.active == 'true') {
+		return <SvgXml xml={Icon} width="30px" height="30px" viewBox="0 0 48 48" fill="#FF8000"/>;
+	}
+	else {
+		return <SvgXml xml={Icon} width="30px" height="30px" viewBox="0 0 48 48" fill="#444"/>;
+	}
 }

@@ -2,16 +2,28 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Icons from '../assets/svg/Material_icons';
 
-export default function Button_btnBar(att){
-	const name = att.ico
-	const title = att.title
+export default function Button_btnBar(props){
+	const name = props.ico;
+	const title = props.title;
 
-	return (
-		<View style={styles.outer}>
-			<Icons name={name}/>
-			<Text style={styles.title}>{title}</Text>
-		</View>
-		)
+	//Check if button need orange color
+	if (props.ActiveTab == props.number) {
+
+		return (
+				<View style={styles.outer}>
+					<Icons name={name} active='true'/>
+					<Text style={styles.titleActive}>{title}</Text>
+				</View>
+			)
+	}
+	else {
+		return (
+				<View style={styles.outer}>
+					<Icons name={name} active='false'/>
+					<Text style={styles.title}>{title}</Text>
+				</View>
+			)
+	}
 }
 
 const styles = StyleSheet.create({
@@ -23,6 +35,10 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		color:"#444",
+		fontSize:11
+	},
+	titleActive: {
+		color:"#FF8000",
 		fontSize:11
 	}
 })
