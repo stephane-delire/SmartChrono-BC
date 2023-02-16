@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import BtnBar from './components/btnBar';
-import StatusBar from './components/statusBar'
-import MainScreen from './components/MainScreen'
+import StatusBar from './components/statusBar';
+import MainScreen from './components/MainScreen';
+
+import Odoo from './assets/lib/apidoo/Odoo';
+
+
 
 export default function App() {
   /*STATES*/
