@@ -4,6 +4,8 @@ import BtnBar from './components/btnBar';
 import StatusBar from './components/statusBar';
 import MainScreen from './components/MainScreen';
 
+import Settings from './assets/lib/settings/settings';
+
 import Odoo from './assets/lib/apidoo/Odoo';
 
 
@@ -13,6 +15,19 @@ export default function App() {
   const [ActiveTab, setActiveTab] = useState(0)
 
 
+  /*SETTINGS*/
+  async function initSettings() {
+    let settings = await Settings.load();
+    if (!settings) {
+      settings = new Settings("", "", "");
+      console.warn("No settings found");
+    }
+    return settings;
+  }
+  var settings = initSettings();
+
+
+  /*RETURN*/
   return (
     <View style={styles.container}>
       <StatusBar ActiveTab={ActiveTab}/>
