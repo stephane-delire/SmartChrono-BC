@@ -20,7 +20,7 @@ export default function App() {
     let settings = await Settings.load();
     if (!settings) {
       settings = new Settings("", "", "");
-      console.warn("No settings found");
+      //console.warn("No settings found");
     }
     return settings;
   }

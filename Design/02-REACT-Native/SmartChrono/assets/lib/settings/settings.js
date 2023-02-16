@@ -31,19 +31,42 @@ export default Settings;
 
 /* Usage :
 
-const settings = new Settings('https://example.com', 'user123', 'mytable');
-settings.save();
 
----
+import Settings from './Settings';
 
-Settings.load().then((settings) => {
-  if (settings) {
-    console.log(settings.url, settings.login, settings.model);
-  } else {
-    console.log('No settings found');
+async function initSettings() {
+  let settings = await Settings.load();
+  if (!settings) {
+    settings = new Settings('', '', '');
   }
+  return settings;
+}
+
+// Utilisation de la fonction initSettings()
+initSettings().then((settings) => {
+  // Faire quelque chose avec les valeurs de settings
 });
 
+
+
+
+
+
+
+
+initSettings().then((settings) => {
+  console.log('URL : ' + settings.url);
+  console.log('Login : ' + settings.login);
+  console.log('Table Name : ' + settings.tableName);
+
+  // Modifier les valeurs de l'objet Settings
+  settings.url = 'http://example.com';
+  settings.login = 'mylogin';
+  settings.tableName = 'mytable';
+
+  // Stocker les nouvelles valeurs dans le localStorage
+  settings.save();
+});
 
 
 
