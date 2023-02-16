@@ -5,7 +5,7 @@ import StatusBar from './components/statusBar'
 import MainScreen from './components/MainScreen'
 
 export default function App() {
-  /*HOOK*/
+  /*STATES*/
   const [ActiveTab, setActiveTab] = useState(0)
 
 
