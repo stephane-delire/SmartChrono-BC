@@ -7,6 +7,8 @@ export default function TabSettings() {
   const [login, setLogin] = useState('');
   const [dbTable, setDbTable] = useState('');
 
+  const btnSize = 48;
+
   const handleUrlChange = (text) => {
     setUrl(text);
   };
@@ -35,7 +37,7 @@ export default function TabSettings() {
       <TextInput style={styles.input} onChangeText={handleDbTableChange} value={dbTable} />
 
       <TouchableOpacity onPress={handleButtonPress}>
-        <Button size={'48'} color='#444' ico='saveIco'/>
+        <Button btnSize={btnSize} color='#444' ico='saveIco' style={{backgroundColor:'#FFF'}}/>
       </TouchableOpacity>
     </View>
   );

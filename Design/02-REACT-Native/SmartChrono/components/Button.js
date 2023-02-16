@@ -5,11 +5,11 @@ import Icons from '../assets/svg/Icons';
 export default function Button(props) {
 	const ico = props.ico;
 	const color = props.ico;
-	const size = props.size;
+	const size = props.btnSize;
 
 	return (
-		<View style={{width:{size}, height:{size}, backgroundColor:{color}, borderRadius:'50%'}}>
-			<Icons ico={ico} size={size} color='#FFF'/>
+		<View style={{width:{48}, height:{48}, backgroundColor:{color}, borderRadius:'50%'}}>
+			<Icons ico={ico} icoSize={size} color='#FFF'/>
 		</View>
 		)
 

@@ -33,6 +33,7 @@ const icoLink = {
 export default function Icons(props) {
 	const Icon = icoLink[props.ico];
 
-	return <SvgXml xml={Icon} width={props.size} height={props.size} viewBox="0 0 48 48" fill={props.color}/>;
+	//return <SvgXml xml={Icon} width={props.icoSize} height={props.icoSize} viewBox="0 0 48 48" fill={props.color}/>;
+	return <SvgXml xml={Icon} width={48} height={48} viewBox="0 0 48 48" fill={props.color}/>;
 
 }
