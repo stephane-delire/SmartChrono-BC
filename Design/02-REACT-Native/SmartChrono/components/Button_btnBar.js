@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Icons from '../assets/svg/Material_icons';
+import Icons from '../assets/svg/Bar_icons';
 
 export default function Button_btnBar(props){
 	const name = props.ico;
