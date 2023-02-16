@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import TabHelp from './tabs/TabHelp'
-
+import TabSettings from './tabs/TabSettings'
 
 
 
@@ -54,9 +54,7 @@ export default function MainScreen(props) {
 	if (props.ActiveTab == 4) {
 		return (
 			<View style={styles.container}>
-
-				
-			
+				<TabSettings/>
 			</View>
 			)
 	}
