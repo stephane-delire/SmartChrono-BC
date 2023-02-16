@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import Button from '../Button'
 
 export default function TabSettings() {
   const [url, setUrl] = useState('');
@@ -33,8 +34,8 @@ export default function TabSettings() {
       <Text style={styles.label}>DB Table</Text>
       <TextInput style={styles.input} onChangeText={handleDbTableChange} value={dbTable} />
 
-      <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
-        <Text style={styles.buttonText}>Button</Text>
+      <TouchableOpacity onPress={handleButtonPress}>
+        <Button size={'48'} color='#444' ico='saveIco'/>
       </TouchableOpacity>
     </View>
   );
@@ -45,11 +46,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 16,
+    marginHorizontal: 5,
   },
   label: {
     fontWeight: 'bold',
     marginVertical: 8,
+    color: "#FFF"
   },
   input: {
     height: 40,
@@ -58,16 +60,5 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: 8,
     width: '100%',
-  },
-  button: {
-    backgroundColor: 'blue',
-    padding: 16,
-    borderRadius: 8,
-    marginTop: 16,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
+  }
 });
