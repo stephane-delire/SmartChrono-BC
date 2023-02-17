@@ -1,7 +1,6 @@
 import { AsyncStorage } from 'react-native';
 //https://github.com/react-native-async-storage/async-storage
 
-import { Odoo } from '../apidoo/Odoo'
 
 class Project {
 	constructor(projectList){
@@ -10,6 +9,15 @@ class Project {
 
 	save() {
 		AsyncStorage.setItem('projectList', JSON.stringify(this.projectList))
+	}
+
+	static async load() {
+		const projectList = await AsyncStorage.getItem('projectList');
+		if (projectList) {
+			const projectList = JSON.parse(projectList);
+			return new Project(projectList);
+		}
+		return null;
 	}
 }
 
