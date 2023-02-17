@@ -1,5 +1,4 @@
 //https://github.com/boramyleng/react-native-odoo/blob/master/lib/index.js
-'use strict';
 
 var Odoo = function (config) {
   config = config || {};
