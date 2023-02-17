@@ -8,7 +8,7 @@ class Project {
 	}
 
 	save() {
-		AsyncStorage.setItem('projectList', JSON.stringify(this.projectList))
+		AsyncStorage.setItem('projectList', JSON.stringify(this.projectList));
 	}
 
 	static async load() {
