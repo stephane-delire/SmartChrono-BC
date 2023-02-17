@@ -7,8 +7,6 @@ export default function TabSettings() {
   const [login, setLogin] = useState('');
   const [dbTable, setDbTable] = useState('');
 
-  const btnSize = 48;
-
   const handleUrlChange = (text) => {
     setUrl(text);
   };
