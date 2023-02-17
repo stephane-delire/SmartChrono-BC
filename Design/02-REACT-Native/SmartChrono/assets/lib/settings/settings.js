@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+//https://github.com/react-native-async-storage/async-storage
 
 class Settings {
   constructor(url, login, tableName) {
