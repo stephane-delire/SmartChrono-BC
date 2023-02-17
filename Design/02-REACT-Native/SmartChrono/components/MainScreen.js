@@ -12,7 +12,7 @@ export default function MainScreen(props) {
 	if (props.ActiveTab == 5) {
 		return (
 			<View style={styles.container}>
-			
+				<TabHelp/>
 			</View>
 			)
 	}
@@ -43,9 +43,6 @@ export default function MainScreen(props) {
 	if (props.ActiveTab == 3) {
 		return (
 			<View style={styles.container}>
-
-				<Test/>
-			
 			</View>
 			)
 	}

@@ -6,7 +6,6 @@ import MainScreen from './components/MainScreen';
 
 import Settings from './assets/lib/settings/settings';
 
-import Odoo from './assets/lib/apidoo/Odoo';
 
 
 
