@@ -36,7 +36,7 @@ export default function TabSettings() {
       <Text style={styles.label}>DB Table</Text>
       <TextInput style={styles.input} onChangeText={handleDbTableChange} value={dbTable} />
 
-        <Button svgName='saveIco' size={75}/>
+        <Button svgName='saveIco'/>
     </View>
   );
 }

@@ -63,7 +63,7 @@ export default function MainScreen(props) {
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: "row",
-		borderWidth: 2,
+		borderWidth: 0,
 		borderColor: "#80FF00",
 		height: "70%",
 		width: "100%"

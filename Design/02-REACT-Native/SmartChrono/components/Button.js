@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import SVGlink from '../assets/svg/Icons';
-import SvgXml from 'react-native-svg';
+import { SvgXml, SvgUri } from 'react-native-svg';
+
 
 const Button = (props) => {
   const {
@@ -11,7 +12,9 @@ const Button = (props) => {
     text,
     onPress,
   } = props;
-  
+
+console.log(SVGlink[svgName])
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={{
@@ -21,15 +24,14 @@ const Button = (props) => {
         backgroundColor: color,
         alignItems: 'center',
         justifyContent: 'center',
-        color: '#FF8000'
+        color: '#FF8000',
       }}>
         {svgName &&
           <SvgXml
             width={size / 2}
             height={size / 2}
-            xml={SVGlink[svgName]}
-            viewBox="0 0 48 48"
             fill='#000000'
+            xml={SVGlink[svgName]}
           />
         }
         {text &&
