@@ -1,3 +1,0 @@
-On me demande de créer une application mobile qui constitue un chronomètre relié à des taches concernant un projet précis. 
-Par exemple certains avocats se font payer au quart d'heure, et ceux-ci aimerait une application mobile (donc sur smartphone) qui leur permette lorsqu'il le désire lancer un chronomètre. Une fois leur tache finie, ils aimerait que ce chronomètre s'arrete et qu'il envoit ses données enregistrées vers un serveur afin de pouvoir réaliser des timesheets automatique, faire des analyses de temps passer sur les taches et au final pouvoir faturer automatiquement leurs heures prestées.
-Ceci s'applique aussi par exemple à des informaticiens ou toute personne souhaintant comptabiliser le temps passer sur des projets spéciaux.
