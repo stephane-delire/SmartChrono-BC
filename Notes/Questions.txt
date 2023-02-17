@@ -1,0 +1,5 @@
+C'est quoi ce bordel... 
+https://www.odoo.com/documentation/15.0/fr/developer/api/external_api.html
+Apidoo n'est pas complet pour refaire ceci en JS (Allow-cross-origin m'ennuie un peu pour les test...), et ça utilise JSON-RPC et non XML-RPC ?
+
+- Quels sont les tables pour Project et Task ?

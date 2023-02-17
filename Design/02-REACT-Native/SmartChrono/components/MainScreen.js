@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import TabHelp from './tabs/TabHelp'
 import TabSettings from './tabs/TabSettings'
 
+import Test from './tabs/TabTest'
+
 
 
 export default function MainScreen(props) {
@@ -44,7 +46,7 @@ export default function MainScreen(props) {
 		return (
 			<View style={styles.container}>
 
-				
+				<Test/>
 			
 			</View>
 			)
