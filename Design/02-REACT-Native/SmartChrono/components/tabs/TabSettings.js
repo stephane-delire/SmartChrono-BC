@@ -36,9 +36,7 @@ export default function TabSettings() {
       <Text style={styles.label}>DB Table</Text>
       <TextInput style={styles.input} onChangeText={handleDbTableChange} value={dbTable} />
 
-      <TouchableOpacity onPress={handleButtonPress}>
-        <Button btnSize={btnSize} color='#444' ico='saveIco' style={{backgroundColor:'#FFF'}}/>
-      </TouchableOpacity>
+        <Button svgName='saveIco' size={75}/>
     </View>
   );
 }

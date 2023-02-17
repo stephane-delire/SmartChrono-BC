@@ -15,7 +15,7 @@ const saveIco = '<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 
 const doneIco = '<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path d="M378 810 154 586l43-43 181 181 384-384 43 43-427 427Z"/></svg>'
 
 /*linkage*/
-const icoLink = {
+const SVGlink = {
 	playIco : playIco,
 	pauseIco : pauseIco,
 	stopIco : stopIco,
@@ -30,10 +30,4 @@ const icoLink = {
 }
 
 /*Function for react*/
-export default function Icons(props) {
-	const Icon = icoLink[props.ico];
-
-	//return <SvgXml xml={Icon} width={props.icoSize} height={props.icoSize} viewBox="0 0 48 48" fill={props.color}/>;
-	return <SvgXml xml={Icon} width={48} height={48} viewBox="0 0 48 48" fill={props.color}/>;
-
-}
+export default SVGlink
