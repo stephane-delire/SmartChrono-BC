@@ -1,5 +1,7 @@
-import { AsyncStorage } from 'react-native';
+//import { AsyncStorage } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 //https://github.com/react-native-async-storage/async-storage
+//npm i @react-native-async-storage/async-storage
 
 class Settings {
   constructor(url, login, tableName) {
