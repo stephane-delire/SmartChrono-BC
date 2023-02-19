@@ -25,7 +25,7 @@ struct BtnBar: View {
                     Image(systemName:"folder")
                     Text("Record")
                 }
-            Text("View Settings")
+            ViewSettings()
                 .tabItem{
                     Image(systemName:"gear")
                     Text("Settings")
