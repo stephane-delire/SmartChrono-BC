@@ -17,6 +17,8 @@
 		9776B3C229A242450021E2E2 /* ViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3C129A242450021E2E2 /* ViewSettings.swift */; };
 		9776B3C529A24DD00021E2E2 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3C429A24DD00021E2E2 /* Dummy.swift */; };
 		9776B3C729A2A22F0021E2E2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3C629A2A22F0021E2E2 /* Settings.swift */; };
+		9776B3C929A2ADC40021E2E2 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3C829A2ADC40021E2E2 /* Record.swift */; };
+		9776B3CB29A2B1330021E2E2 /* ViewRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3CA29A2B1330021E2E2 /* ViewRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		9776B3C129A242450021E2E2 /* ViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettings.swift; sourceTree = "<group>"; };
 		9776B3C429A24DD00021E2E2 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		9776B3C629A2A22F0021E2E2 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		9776B3C829A2ADC40021E2E2 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		9776B3CA29A2B1330021E2E2 /* ViewRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecord.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 				9776B3BE29A238B30021E2E2 /* Burniaux-Consulting HelpBox */,
 				9776B3BC29A2340B0021E2E2 /* ViewHelp.swift */,
 				9776B3C129A242450021E2E2 /* ViewSettings.swift */,
+				9776B3CA29A2B1330021E2E2 /* ViewRecord.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -105,6 +110,7 @@
 			children = (
 				9776B3C429A24DD00021E2E2 /* Dummy.swift */,
 				9776B3C629A2A22F0021E2E2 /* Settings.swift */,
+				9776B3C829A2ADC40021E2E2 /* Record.swift */,
 			);
 			path = Codes;
 			sourceTree = "<group>";
@@ -181,8 +187,10 @@
 			files = (
 				9776B3BA29A231120021E2E2 /* BtnBar.swift in Sources */,
 				9776B3C529A24DD00021E2E2 /* Dummy.swift in Sources */,
+				9776B3C929A2ADC40021E2E2 /* Record.swift in Sources */,
 				9776B3C729A2A22F0021E2E2 /* Settings.swift in Sources */,
 				9776B3C229A242450021E2E2 /* ViewSettings.swift in Sources */,
+				9776B3CB29A2B1330021E2E2 /* ViewRecord.swift in Sources */,
 				9776B3BD29A2340B0021E2E2 /* ViewHelp.swift in Sources */,
 				9776B3C029A238E30021E2E2 /* HelpBox.swift in Sources */,
 				9776B3AE29A2309C0021E2E2 /* ContentView.swift in Sources */,

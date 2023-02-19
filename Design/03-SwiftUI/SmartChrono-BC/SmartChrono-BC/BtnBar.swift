@@ -20,7 +20,7 @@ struct BtnBar: View {
                     Image(systemName:"icloud")
                     Text("Sync")
                 }
-            Text("View Record")
+            ViewRecord()
                 .tabItem{
                     Image(systemName:"folder")
                     Text("Record")
