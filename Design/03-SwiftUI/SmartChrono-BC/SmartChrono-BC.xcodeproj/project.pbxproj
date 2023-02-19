@@ -13,6 +13,7 @@
 		9776B3B329A2309E0021E2E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9776B3B229A2309E0021E2E2 /* Preview Assets.xcassets */; };
 		9776B3BA29A231120021E2E2 /* BtnBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3B929A231120021E2E2 /* BtnBar.swift */; };
 		9776B3BD29A2340B0021E2E2 /* ViewHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3BC29A2340B0021E2E2 /* ViewHelp.swift */; };
+		9776B3C029A238E30021E2E2 /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3BF29A238E30021E2E2 /* HelpBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		9776B3B229A2309E0021E2E2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9776B3B929A231120021E2E2 /* BtnBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtnBar.swift; sourceTree = "<group>"; };
 		9776B3BC29A2340B0021E2E2 /* ViewHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHelp.swift; sourceTree = "<group>"; };
+		9776B3BF29A238E30021E2E2 /* HelpBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +78,18 @@
 		9776B3BB29A233C50021E2E2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9776B3BE29A238B30021E2E2 /* Burniaux-Consulting HelpBox */,
 				9776B3BC29A2340B0021E2E2 /* ViewHelp.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9776B3BE29A238B30021E2E2 /* Burniaux-Consulting HelpBox */ = {
+			isa = PBXGroup;
+			children = (
+				9776B3BF29A238E30021E2E2 /* HelpBox.swift */,
+			);
+			path = "Burniaux-Consulting HelpBox";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +164,7 @@
 			files = (
 				9776B3BA29A231120021E2E2 /* BtnBar.swift in Sources */,
 				9776B3BD29A2340B0021E2E2 /* ViewHelp.swift in Sources */,
+				9776B3C029A238E30021E2E2 /* HelpBox.swift in Sources */,
 				9776B3AE29A2309C0021E2E2 /* ContentView.swift in Sources */,
 				9776B3AC29A2309C0021E2E2 /* SmartChrono_BCApp.swift in Sources */,
 			);

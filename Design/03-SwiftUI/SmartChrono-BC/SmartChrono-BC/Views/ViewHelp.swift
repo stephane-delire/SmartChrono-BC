@@ -10,7 +10,7 @@ import SwiftUI
 struct ViewHelp: View {
     var body: some View {
         NavigationView{
-            Text("Inside")
+            HelpBox()
             
                 .navigationTitle("Help")
         }
