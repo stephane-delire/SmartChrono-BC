@@ -78,3 +78,4 @@ class OdooClient {
         return result as? Bool ?? false
     }
     
+}
