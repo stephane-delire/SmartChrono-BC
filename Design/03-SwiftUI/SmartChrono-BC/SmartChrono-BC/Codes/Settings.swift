@@ -13,6 +13,7 @@ class Settings: Codable {
     // Variables pour stocker les réglages
     var url: String = ""
     var login: String = ""
+    var DB: String = ""
     var tableName: String = ""
     
     // Emplacement du fichier de sauvegarde
@@ -21,6 +22,7 @@ class Settings: Codable {
     private enum CodingKeys: String, CodingKey {
         case url
         case login
+        case DB
         case tableName
     }
     
@@ -35,6 +37,7 @@ class Settings: Codable {
            let settings = try? JSONDecoder().decode(Settings.self, from: data) {
             self.url = settings.url
             self.login = settings.login
+            self.DB = settings.DB
             self.tableName = settings.tableName
         }
     }
