@@ -48,6 +48,23 @@ struct ViewSettings: View {
                 .padding(.bottom, 15)
                 
                 VStack{
+                    Text("Database name")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .padding(.bottom, -15)
+                    
+                    TextField("", text: $userInput)
+                        .padding()
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.primary))
+                        .padding()
+                    Text("Indicate the DataBase name.")
+                        .font(.caption)
+                        .padding(.top, -15)
+                }
+                .padding(.bottom, 15)
+                
+                VStack{
                     Text("Table name")
                         .font(.title3)
                         .fontWeight(.bold)
