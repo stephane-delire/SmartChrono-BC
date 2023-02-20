@@ -134,6 +134,8 @@
 			dependencies = (
 			);
 			name = "SmartChrono-BC";
+			packageProductDependencies = (
+			);
 			productName = "SmartChrono-BC";
 			productReference = 9776B3A829A2309C0021E2E2 /* SmartChrono-BC.app */;
 			productType = "com.apple.product-type.application";
@@ -162,6 +164,8 @@
 				Base,
 			);
 			mainGroup = 9776B39F29A2309C0021E2E2;
+			packageReferences = (
+			);
 			productRefGroup = 9776B3A929A2309C0021E2E2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
