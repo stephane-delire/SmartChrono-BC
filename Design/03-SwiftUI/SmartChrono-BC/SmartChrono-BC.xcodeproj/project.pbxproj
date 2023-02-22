@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		972477EE29A68B880056F499 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972477ED29A68B880056F499 /* User.swift */; };
+		972477F129A68E5F0056F499 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 972477F029A68E5F0056F499 /* Alamofire */; };
+		972477F729A692020056F499 /* ViewSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972477F629A692020056F499 /* ViewSync.swift */; };
+		972477F929A69B9D0056F499 /* ViewLaunchSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972477F829A69B9D0056F499 /* ViewLaunchSync.swift */; };
 		9742FA4129A3D1F80071C242 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9742FA4029A3D1F80071C242 /* Project.swift */; };
 		975A3C4A29A3F407004C2F69 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975A3C4929A3F407004C2F69 /* Sync.swift */; };
 		9776B3AC29A2309C0021E2E2 /* SmartChrono_BCApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3AB29A2309C0021E2E2 /* SmartChrono_BCApp.swift */; };
@@ -24,6 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		972477ED29A68B880056F499 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		972477F629A692020056F499 /* ViewSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSync.swift; sourceTree = "<group>"; };
+		972477F829A69B9D0056F499 /* ViewLaunchSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLaunchSync.swift; sourceTree = "<group>"; };
 		9742FA4029A3D1F80071C242 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		975A3C4929A3F407004C2F69 /* Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
 		9776B3A829A2309C0021E2E2 /* SmartChrono-BC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SmartChrono-BC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				972477F129A68E5F0056F499 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +105,8 @@
 				9776B3BC29A2340B0021E2E2 /* ViewHelp.swift */,
 				9776B3C129A242450021E2E2 /* ViewSettings.swift */,
 				9776B3CA29A2B1330021E2E2 /* ViewRecord.swift */,
+				972477F629A692020056F499 /* ViewSync.swift */,
+				972477F829A69B9D0056F499 /* ViewLaunchSync.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -117,6 +127,7 @@
 				9776B3C829A2ADC40021E2E2 /* Record.swift */,
 				9742FA4029A3D1F80071C242 /* Project.swift */,
 				975A3C4929A3F407004C2F69 /* Sync.swift */,
+				972477ED29A68B880056F499 /* User.swift */,
 			);
 			path = Codes;
 			sourceTree = "<group>";
@@ -138,6 +149,7 @@
 			);
 			name = "SmartChrono-BC";
 			packageProductDependencies = (
+				972477F029A68E5F0056F499 /* Alamofire */,
 			);
 			productName = "SmartChrono-BC";
 			productReference = 9776B3A829A2309C0021E2E2 /* SmartChrono-BC.app */;
@@ -168,6 +180,7 @@
 			);
 			mainGroup = 9776B39F29A2309C0021E2E2;
 			packageReferences = (
+				972477EF29A68E5F0056F499 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 9776B3A929A2309C0021E2E2 /* Products */;
 			projectDirPath = "";
@@ -195,6 +208,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				972477EE29A68B880056F499 /* User.swift in Sources */,
+				972477F729A692020056F499 /* ViewSync.swift in Sources */,
 				9776B3BA29A231120021E2E2 /* BtnBar.swift in Sources */,
 				9776B3C529A24DD00021E2E2 /* Dummy.swift in Sources */,
 				9776B3C929A2ADC40021E2E2 /* Record.swift in Sources */,
@@ -207,6 +222,7 @@
 				9776B3AE29A2309C0021E2E2 /* ContentView.swift in Sources */,
 				975A3C4A29A3F407004C2F69 /* Sync.swift in Sources */,
 				9776B3AC29A2309C0021E2E2 /* SmartChrono_BCApp.swift in Sources */,
+				972477F929A69B9D0056F499 /* ViewLaunchSync.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +423,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		972477EF29A68E5F0056F499 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		972477F029A68E5F0056F499 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 972477EF29A68E5F0056F499 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9776B3A029A2309C0021E2E2 /* Project object */;
 }
