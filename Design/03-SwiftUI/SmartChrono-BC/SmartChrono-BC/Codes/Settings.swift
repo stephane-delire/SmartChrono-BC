@@ -14,7 +14,6 @@ class Settings: Codable {
     var url: String = ""
     var login: String = ""
     var DB: String = ""
-    var tableName: String = ""
     
     // Emplacement du fichier de sauvegarde
     var fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("settings.json")
@@ -23,7 +22,6 @@ class Settings: Codable {
         case url
         case login
         case DB
-        case tableName
     }
     
     init() {
@@ -38,7 +36,6 @@ class Settings: Codable {
             self.url = settings.url
             self.login = settings.login
             self.DB = settings.DB
-            self.tableName = settings.tableName
         }
     }
     
