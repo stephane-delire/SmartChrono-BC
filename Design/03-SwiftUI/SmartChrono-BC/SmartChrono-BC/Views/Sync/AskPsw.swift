@@ -1,5 +1,5 @@
 //
-//  ViewLaunchSync.swift
+//  AskPsw.swift
 //  SmartChrono-BC
 //
 //  Created by Delire Stéphane on 22/02/2023.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ViewLaunchSync: View {
-    @State private var stateManage: Int = 0
-    @State private var password: String = ""
+struct AskPsw: View {
+    
+    @State var password:String = ""
     
     var body: some View {
-        if stateManage == 0 {
+        NavigationView{
             VStack {
                 Text("Password")
                     .font(.title)
@@ -27,7 +27,7 @@ struct ViewLaunchSync: View {
                     .multilineTextAlignment(.center)
                     .padding(.top, -15)
                 
-                Button(action: { stateManage += 1 }) {
+                Button(action: { dummy() }) {
                     Image(systemName: "arrow.forward")
                         .foregroundColor(Color.black)
                         .font(.system(size: 30))
@@ -36,25 +36,14 @@ struct ViewLaunchSync: View {
                 .background(Color("backgroundButton"))
                 .clipShape(Circle())
             }
-        } else {
-            VStack {
-                if stateManage == 1 {
-                        Text("Loading settings")
-                        let settings = Settings()
-                        stateManage += 1
-                }
-                if stateManage == 2 {
-                    Text("2")
-                }
-                ProgressView()
-            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
     }
 }
 
-
-struct ViewLaunchSync_Previews: PreviewProvider {
+struct AskPsw_Previews: PreviewProvider {
     static var previews: some View {
-        ViewLaunchSync()
+        AskPsw()
     }
 }

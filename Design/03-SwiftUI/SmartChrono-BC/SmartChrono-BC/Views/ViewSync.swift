@@ -13,7 +13,7 @@ struct ViewSync: View {
                 VStack{
                     Text("Sync")
                         .font(.title)
-                    NavigationLink(destination: {ViewLaunchSync()},label:{
+                    NavigationLink(destination: {SyncManager()},label:{
                         VStack{
                             Image(systemName: "icloud.and.arrow.up")
                                 .foregroundColor(Color.black)
