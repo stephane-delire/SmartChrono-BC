@@ -27,11 +27,16 @@ struct AskPsw: View {
                     .multilineTextAlignment(.center)
                     .padding(.top, -15)
                 
-                Button(action: { dummy() }) {
+                /*Button(action: { SyncManager() }) {
                     Image(systemName: "arrow.forward")
                         .foregroundColor(Color.black)
                         .font(.system(size: 30))
-                }
+                }*/
+                NavigationLink(destination: { SyncManager(userPassword:password) }, label: {
+                    Image(systemName: "arrow.forward")
+                        .foregroundColor(Color.black)
+                        .font(.system(size: 30))
+                })
                 .frame(width: 75, height: 75)
                 .background(Color("backgroundButton"))
                 .clipShape(Circle())
