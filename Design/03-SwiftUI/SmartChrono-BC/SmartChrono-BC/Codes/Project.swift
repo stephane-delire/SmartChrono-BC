@@ -7,38 +7,32 @@
 
 import Foundation
 
-//https://developer.apple.com/swift/blog/?id=37
-class Project: Codable {
+class Project {
+    var projectData: [Int: String] = [:]
     
-    struct ProjectData:Decodable {
-        let nom:String
-        let id:String
-    }
-    
-    init(){
-        loadProject()
-    }
-    
-    func loadProject(){
-        var fileURL:URL
-        let fm = FileManager.default
-        let dir = fm.urls(for: .documentDirectory, in: .userDomainMask)
-        if dir.count != 0 {
-            fileURL = dir[0].appendingPathComponent("project.json")
-        } else {
-            print("class Project - unable to obtain a valid file path")
-            return;
+    init() {
+        if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("project.json") {
+            do {
+                let jsonData = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                self.projectData = try decoder.decode([Int: String].self, from: jsonData)
+            } catch {
+                // Si on ne parvient pas à charger les données, on crée un fichier JSON vide
+                self.saveProjectData()
+            }
         }
-        
-        do {
-            let jsonData = try Data(contentsOf: fileURL)
-        } catch {
-            // on doit créer un json vide
-            let jsonData:[String:String]
-            
-        }
-        
     }
     
-    func saveProject(){}
+    func saveProjectData() {
+        if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("project.json") {
+            do {
+                let encoder = JSONEncoder()
+                let jsonData = try encoder.encode(self.projectData)
+                try jsonData.write(to: url, options: .atomic)
+            } catch {
+                print(error)
+            }
+        }
+    }
 }
+
