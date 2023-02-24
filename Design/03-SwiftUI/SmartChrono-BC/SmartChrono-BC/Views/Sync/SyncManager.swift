@@ -32,7 +32,7 @@ struct SyncManager: View {
     @State var syncTaskUpdated:Bool = false
     @State var syncIsDone:Bool = false
 
-    @State var syncDebug:Bool = true
+    @State var syncDebug:Bool = false
     @State var textString:String = "Debug is on"
     
 
@@ -60,7 +60,7 @@ struct SyncManager: View {
         
         //Task
         textString = "Loading task"
-        //var task = Task()
+        var task = Task()
         syncTaskLoaded = true
         
         //Record
@@ -70,31 +70,93 @@ struct SyncManager: View {
         
         //Retrieve ID
         let headers: HTTPHeaders = [
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent": "SmartChrono",
+            "Connection": "keep-alive"
         ]
-        let parameters: Parameters = [
+        var parameters: Parameters = [
             "jsonrpc": "2.0",
             "params": [
                 "service": "common",
                 "method": "login",
-                "args": [settings.DB, settings.DB, "QkkF2-TfbQ"]
+                "args": [settings.DB, settings.login, "QkkF2-TfbQ"]
             ]
         ]
         
-        AF.request(settings.url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            .validate()
+        AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers)
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
                     if let json = value as? [String: Any] {
-                        // Analysez la réponse JSON ici
-                        print(json)
+                        print("!Success JSON-RPC!")
+                        // Analysez la réponse JSON
+                        let userId = json["result"] as? Int
+                        print("Retrieve user id : \(userId ?? 0)")
+                        if(userId == 0){
+                            print("error authenticate...")
+                            syncErrorMsg = "Authentication error, check your password and your login"
+                            syncError = true
+                            return
+                        }
                     }
                 case .failure(let error):
                     print(error)
+                    syncErrorMsg = "Error connecting to url..."
+                    syncError = true
                 }
             }
+        syncIDLoaded = true
         
+        // Send record
+        for record in record.data {
+            let date = record["date"] as? Date ?? Date()
+            let id = record["id"] as? String ?? ""
+            let duration = record["duration"] as? Int ?? 0
+            let projectId = record["project"] as? String ?? ""
+            let taskId = record["task"] as? String ?? ""
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-mm-dd"
+            let dateString = dateFormatter.string(from: date)
+            
+            parameters = [
+                "jsonrpc": "2.0",
+                "params": [
+                    "service": "object",
+                    "method": "execute",
+                    "args": [settings.DB, settings.login, userPassword, "account.analytic.line", "create", [
+                        "project_id":projectId,
+                        "date":dateString, //yyyy-mm-dd
+                        "task_id":taskId,
+                        "unit_amount":Float(duration)/3600.0
+                            ]
+                        ]
+                    ]
+            ]
+            
+            AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers)
+                .responseJSON { response in
+                    switch response.result {
+                    case .success(let value):
+                        if let json = value as? [String: Any] {
+                            let resp = json["result"] as? Int
+                            if(resp == nil){
+                                print("error authenticate...")
+                                syncErrorMsg = "Authentication error during send record, check your password and your login"
+                                syncError = true
+                                return
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                        syncErrorMsg = "Error connecting to url..."
+                        syncError = true
+                    }
+                }
+            
+        }
+        syncRecordSend = true
+    
     }
 
     
@@ -203,6 +265,7 @@ struct SyncManager: View {
                     .font(.title)
                     .foregroundColor(Color.red)
                 Text(String(syncErrorMsg))
+                    .multilineTextAlignment(.center)
             }
         }
         .onAppear{launchSync()}
