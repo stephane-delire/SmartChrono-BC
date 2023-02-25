@@ -10,7 +10,7 @@ import SwiftUI
 struct BtnBar: View {
     var body: some View {
         TabView{
-            Text("View Chrono")
+            ViewChrono()
                 .tabItem {
                     Image(systemName:"timer")
                     Text("Chrono")

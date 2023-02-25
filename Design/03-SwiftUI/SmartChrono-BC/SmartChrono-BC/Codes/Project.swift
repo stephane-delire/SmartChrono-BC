@@ -18,6 +18,7 @@ class Project {
                 self.projectData = try decoder.decode([Int: String].self, from: jsonData)
             } catch {
                 // Si on ne parvient pas à charger les données, on crée un fichier JSON vide
+                print("Project --- : unable to open file : project.json")
                 self.saveProjectData()
             }
         }
