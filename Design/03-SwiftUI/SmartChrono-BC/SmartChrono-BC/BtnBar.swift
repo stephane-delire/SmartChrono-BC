@@ -15,7 +15,7 @@ struct BtnBar: View {
                     Image(systemName:"timer")
                     Text("Chrono")
                 }
-            Text("View Sync")
+            ViewSync()
                 .tabItem{
                     Image(systemName:"icloud")
                     Text("Sync")

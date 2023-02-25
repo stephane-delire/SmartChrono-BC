@@ -9,7 +9,30 @@ import SwiftUI
 
 struct ViewSettings: View {
     
-    @State private var userInput: String = ""
+    var settings = Settings()
+    
+    @State var inputURL:String = ""
+    @State var inputlogin:String = ""
+    @State var inputDB:String = ""
+    
+    @State var saveState:Bool = false
+    
+    func initializeView(){
+        inputURL = settings.url
+        inputlogin = settings.login
+        inputDB = settings.DB
+        saveState = false
+    }
+    
+    func saveSettings(){
+        settings.url = inputURL
+        settings.login = inputlogin
+        settings.DB = inputDB
+        
+        settings.saveSettings()
+        saveState = true
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
     
     var body: some View {
         NavigationView{
@@ -20,7 +43,7 @@ struct ViewSettings: View {
                         .fontWeight(.bold)
                         .padding(.bottom, -15)
                     
-                    TextField("", text: $userInput)
+                    TextField("", text: $inputURL)
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.primary))
@@ -36,7 +59,7 @@ struct ViewSettings: View {
                         .fontWeight(.bold)
                         .padding(.bottom, -15)
                     
-                    TextField("", text: $userInput)
+                    TextField("", text: $inputlogin)
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.primary))
@@ -53,7 +76,7 @@ struct ViewSettings: View {
                         .fontWeight(.bold)
                         .padding(.bottom, -15)
                     
-                    TextField("", text: $userInput)
+                    TextField("", text: $inputDB)
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.primary))
@@ -64,27 +87,16 @@ struct ViewSettings: View {
                 }
                 .padding(.bottom, 15)
                 
-                VStack{
-                    Text("Table name")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .padding(.bottom, -15)
-                    
-                    TextField("", text: $userInput)
-                        .padding()
-                        .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.primary))
-                        .padding()
-                    Text("Indicate the DataBase table name.")
-                        .font(.caption)
-                        .padding(.top, -15)
-                }
-                .padding(.bottom, 15)
-                
-                Button(action: dummy){
-                    Image(systemName:"square.and.arrow.down")
-                        .foregroundColor(Color.black)
-                        .font(.system(size: 30))
+                Button(action: saveSettings){
+                    if(saveState == false){
+                        Image(systemName:"square.and.arrow.down")
+                            .foregroundColor(Color.black)
+                            .font(.system(size: 30))
+                    } else {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(Color.green)
+                            .font(.system(size: 30))
+                    }
                 }
                 .frame(width: 75, height: 75)
                 .background(Color("backgroundButton"))
@@ -92,6 +104,7 @@ struct ViewSettings: View {
             }
             .navigationTitle("Settings")
         }
+        .onAppear{initializeView()}
     }
 }
 

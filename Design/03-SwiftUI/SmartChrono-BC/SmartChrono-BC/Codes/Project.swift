@@ -8,36 +8,39 @@
 import Foundation
 
 class Project {
-    let fileName = "Project.json"
-    var projects = [String: Int]()
+    var projectData: [Int: String] = [:]
     
     init() {
-        if let data = FileManager.default.contents(atPath: fileName) {
-            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Int] {
-                projects = json
+        if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("project.json") {
+            do {
+                let jsonData = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                self.projectData = try decoder.decode([Int: String].self, from: jsonData)
+            } catch {
+                // Si on ne parvient pas à charger les données, on crée un fichier JSON vide
+                self.saveProjectData()
             }
-        } else {
-            save()
         }
     }
     
-    func addProject(name: String, id: Int) {
-        projects[name] = id
-        save()
-    }
-    
-    func removeProject(name: String) {
-        projects.removeValue(forKey: name)
-        save()
-    }
-    
-    private func save() {
-        do {
-            let data = try JSONSerialization.data(withJSONObject: projects, options: [])
-            try data.write(to: URL(fileURLWithPath: fileName))
-        } catch {
-            print("Failed to save data: \(error.localizedDescription)")
+    func saveProjectData() {
+        if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("project.json") {
+            do {
+                let encoder = JSONEncoder()
+                let jsonData = try encoder.encode(self.projectData)
+                try jsonData.write(to: url, options: .atomic)
+            } catch {
+                print(error)
+            }
         }
+    }
+    
+    func flush() {
+        self.projectData = [:]
+    }
+    
+    func add(_ key:Int, _ value:String) {
+        self.projectData[key] = value
     }
 }
 

@@ -1,0 +1,79 @@
+Tout les appels vers le serveur Odoo doivent passer par "/jsonrpc"
+Avec une method HTTP : POST
+et c'est dans le body de la requete que l'on donne le JSON
+
+
+-- Informations de base, pour connaitre les infos sur le serveur
+{"jsonrpc":"2.0", "params":{"service":"common", "method":"version", "args": []}}
+
+
+-- Recupérer l'id de l'utilisateur -> Il faut rajouter dans les "args" db, username, password, {} -> Et changer la method dans le JSON par login
+{"jsonrpc":"2.0", "params":{"service":"common", "method":"login", "args": ["demo", "sdelire", "QkkF2-TfbQ"]}}
+
+
+-- Pour interagir avec Odoo il faut intérroger le service "object" (dans model.py code d'odoo..) et utiliser la method "execute" (ou "execute_kw")
+=> Attention qu'il faut récupérer l'id de l'utilisateur à insérer dans les paramètre à la place du login!
+
+-- Exemple depuis le site pour interroger la table "res.partner"
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "res.partner", "search", [["is_company", "=", true]]]}}
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "res.partner", "search_count", [["is_company", "=", true]]]}}
+
+
+-- Exemple de lecture de la table "res.partner" (sur l'id 9)
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "res.partner", "read", [9]]}}
+
+-- Lecture de la table "res.partner" mais avec un SELECT de champ sur 'name'
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "res.partner", "read", [9], ["name"]]}}
+
+
+-----> Petit test pour récupérer tout les noms sur res.partner "search_read"
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "res.partner", "search_read", [["is_company", "=", true]], ["name"]]}}
+
+
+
+=====> Recupérer la liste des projets sur 'project.project'
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "project.project", "search_read", [], ["name"]]}}
+
+
+=================================================
+-- essais sur les notes
+--> Affiche toutes mes notes
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "note.note", "search_read", [], []]}}
+
+--> Creation d'une note
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "note.note", "create", [{}]]}} -----> Crée une note vide
+
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "note.note", "create", [{"memo":"<h1>Hello from JSON RPC!</h1>", "name":"JSON RPC", "display_name":"JSON RPC"}]]}}
+================================================
+
+=== PROJECT & TASK
+
+=====> Recupérer la liste des projets sur 'project.project'
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "project.project", "search_read", [], ["name"]]}}
+
+=====> Récupérer tout les champs concernant mon projet (id: 9)
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "project.project", "search_read", [["id", "=", 9]], []]}}
+
+=====> Récupérer toutes les taches sur mon projets ->'project.task'
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "project.task", "search_read", [["project_id","=",9]], []]}}
+
+=====> Création d'une tache sur un Projet(id:9)
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "project.task", "create", [{"name":"Test JSON-Rpc", "project_id":9}]]}}
+	------> Retourne l'id de la tache nouvellement crée!
+
+=== account.analytic.line
+
+===> Recupérer la liste complete
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "account.analytic.line", "search_read", [], []]}}
+
+===> Recupere la liste liée à un projet(id:9)
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "account.analytic.line", "search_read", [["project_id","=",9]], []]}}
+
+===> Recupere la liste liée à un projet(id:9) & a une tache(id:169 pour design, 170 pour RPC)
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "account.analytic.line", "search_read", [["project_id","=",9], ["task_id", "=", 170]], []]}}
+
+
+? ==> account.analytic.line possède un champ "product_uom_id" qui correspond au type de temps, style Heure, minutes, ... (4:Heures, 3:Jours, 5: minutes) NE SEMBLE PAS PRENDRE EN COMPTE (donc prendre une fraction d'heure pour compter à la minute, à la seconde...)
+===> Création d'une ligne de temps relative au projet(id:9) et à la tache(id:170)
+
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "account.analytic.line", "create", [{"project_id":9, "task_id":170, "unit_amount":1.25}]]}}
