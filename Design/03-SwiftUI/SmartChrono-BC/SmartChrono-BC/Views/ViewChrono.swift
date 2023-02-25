@@ -9,20 +9,61 @@ import SwiftUI
 
 struct ViewChrono: View {
     
-    func stateLogic() {
-        var fileURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("task.json"))!
-        let data = (try? Data(contentsOf: fileURL))!
-        let decoder = JSONDecoder()
-        let json = try? decoder.decode([Int: [String: Int]].self, from: data)
-        print(json)
+    @State var selectedProjectId:Int = 0
+    @State var selectedTaskId = 0
+    
+    let project = Project()
+    let task = Task()
+
+    
+    
+    // Test function (delete when needed)
+    func test(){
         
     }
     
     var body: some View {
         VStack{
+            //Picker for project
+            Text("Project")
+                .font(.title)
+            Picker("Project", selection: $selectedProjectId){
+                //Transform JSON to tuple Array
+                let arrayProject = project.projectData.map {($0.key, $0.value)}
+                ForEach(arrayProject.sorted(by: { $0 < $1 }), id: \.0){ key, value in
+                    Text(value).tag(key)
+                }
+            }
+            
+            //Picker for task
+            if(selectedProjectId != 0){
+                Text("Task")
+                    .font(.title)
+            }
+            Picker("Task", selection: $selectedTaskId){
+                //Transform JSON to tuple Array
+                let arrayTask = task.taskData.map{($0.key, $0.value.first!.key, $0.value.first!.value)}
+                //Filter
+                ForEach(arrayTask, id: \.0){key, name, fk in
+                    if (fk == selectedProjectId){
+                        Text(name).tag(key)
+                    }
+                }
+            }
+            
+            //Button to start Chrono
+            Button(action: dummy){
+                Image(systemName: "play.fill")
+                    .foregroundColor(Color.black)
+                    .font(.system(size: 30))
+            }
+            .frame(width: 75, height: 75)
+            .background(Color("backgroundButton"))
+            .clipShape(Circle())
+            
             
         }
-        .onAppear{stateLogic()}
+        .onAppear{test()}
     }
 }
 
