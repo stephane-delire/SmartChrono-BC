@@ -409,7 +409,7 @@ func launchSync() {
                             HStack{
                                 Text("Sync completed")
                                     .font(.headline)
-                                Image(systemName: "checkmark")
+                                Image(systemName: "checkmark.icloud")
                                     .foregroundColor(Color.green)
                             }
                             .padding()
