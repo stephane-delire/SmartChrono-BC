@@ -233,21 +233,22 @@ func launchSync() {
                         //print(response.value)
                         //print("+++++")
                         
-                        //fourth call
-                        taskUpdate()
                         if let json = value as? [String: Any], let resultArray = json["result"] as? [[String:Any]] {
                             for item in resultArray {
                                     if let id = item["id"] as? Int, let name = item["name"] as? String {
                                     // Rajouter le projet
                                     project.add(id, name)
+                                    print("++ Adding project id : \(id), name : \(name)")
                                 } else {
                                     print("invalid response from Odoo")
                                     syncErrorMsg = "Invalid response from Odoo server..."
                                     syncError = true
                                     return
                                 }
-                                
                             }
+                            project.saveProjectData()
+                            //fourth call
+                            taskUpdate()
                         } else {
                             print("Cast probleme with JSON recieved! in Project Update")
                         }
@@ -257,7 +258,6 @@ func launchSync() {
                         syncError = true
                     }
                 }
-            project.saveProjectData()
             
             syncProjectUpdated = true
             }
@@ -295,6 +295,7 @@ func launchSync() {
                             if let id = item["id"] as? Int, let name = item["name"] as? String, let respProject = item["project_id"] as? [Any], let projectId = respProject.first as? Int {
                                 // Rajouter le projet à l'objet task
                                 task.add(id, name, projectId)
+                                print("++ Adding task id : \(id), name : \(name), project_id : \(projectId)")
                             } else {
                                 print("invalid response from Odoo")
                                 syncErrorMsg = "Invalid response from Odoo server..."
@@ -304,6 +305,12 @@ func launchSync() {
                         }
                         task.saveTaskData()
                         syncTaskUpdated = true
+                        
+    // END SYNC! --------------------------------------------------------
+                            syncShowProgress = false
+                            syncIsDone = true
+                            print("===== End sync =====")
+                        
                     } else {
                         print("Cast probleme with JSON recieved! in Task Update")
                     }
@@ -313,10 +320,6 @@ func launchSync() {
                     syncError = true
                 }
             }
-    // END SYNC! --------------------------------------------------------
-        syncShowProgress = false
-        syncIsDone = true
-        print("===== End sync =====")
     }
     
         // Adding serial DispatchQueue for synchronous call.
