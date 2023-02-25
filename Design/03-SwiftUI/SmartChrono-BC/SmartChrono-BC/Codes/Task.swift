@@ -8,6 +8,7 @@
 import Foundation
 
 class Task {
+    // [id_task : ["taskName": id_project]
     var taskData: [Int: [String: Int]] = [:]
     
     init() {
@@ -37,5 +38,18 @@ class Task {
     
     func flush() {
         self.taskData = [:]
+    }
+    
+    func add(_ id:Int, _ taskName:String, _ projectId:Int) {
+        self.taskData[id] = [taskName : projectId]
+    }
+    
+    func printData() {
+        Swift.print("===== Tasks =====")
+            for (taskId, taskInfo) in self.taskData {
+                if let taskName = taskInfo.keys.first, let projectId = taskInfo.values.first {
+                    Swift.print("Task ID: \(taskId), Name: \(taskName), Project ID: \(projectId)")
+                }
+            }
     }
 }

@@ -38,5 +38,9 @@ class Project {
     func flush() {
         self.projectData = [:]
     }
+    
+    func add(_ key:Int, _ value:String) {
+        self.projectData[key] = value
+    }
 }
 

@@ -57,7 +57,7 @@ struct SyncManager: View {
         textString = "Loading project"
         var project = Project()
         syncProjectLoaded = true
-        
+        sleep(1)
         //Task
         textString = "Loading task"
         var task = Task()
@@ -88,7 +88,7 @@ struct SyncManager: View {
                 switch response.result {
                 case .success(let value):
                     if let json = value as? [String: Any] {
-                        print("!Success JSON-RPC!")
+                        print("=====!Success JSON-RPC!=====")
                         // Analysez la réponse JSON
                         let userId = json["result"] as? Int
                         print("Retrieve user id : \(userId ?? 0)")
@@ -169,6 +169,9 @@ struct SyncManager: View {
                         ]
                 ]
             ]
+        
+        project.flush()
+        
         AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers)
             .responseJSON { response in
                 switch response.result {
@@ -176,7 +179,8 @@ struct SyncManager: View {
                     if let json = value as? [String: Any], let resultArray = json["result"] as? [Int] {
                         for item in resultArray {
                             if let itemDict = item as? [String:Any], let id = itemDict["id"] as? Int, let name = itemDict["name"] as? String {
-                                // Rajouter le projet à l'objet Project
+                                // Rajouter le projet à l'objet project_u
+                                project.add(id, name)
                             } else {
                                 print("invalid response from Odoo")
                                 syncErrorMsg = "Invalid response from Odoo server..."
@@ -192,7 +196,52 @@ struct SyncManager: View {
                     syncError = true
                 }
             }
+        project.saveProjectData()
+        syncProjectUpdated = true
     
+        
+        // Task update
+        parameters = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute",
+                "args": [settings.DB, settings.login, userPassword, "project.task", "search_read",
+                         [],
+                         ["name", "project_id"]
+                        ]
+                ]
+            ]
+        
+        task.flush()
+        
+        AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String: Any], let resultArray = json["result"] as? [[String:Any]] {
+                        for item in resultArray {
+                            if let id = item["id"] as? Int, let name = item["name"] as? String, let respProject = item["project_id"] as? [Any], let projectId = respProject.first as? Int {
+                                // Rajouter le projet à l'objet task
+                                task.add(id, name, projectId)
+                            } else {
+                                print("invalid response from Odoo")
+                                syncErrorMsg = "Invalid response from Odoo server..."
+                                syncError = true
+                                return
+                            }
+                        
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+                    syncErrorMsg = "Error connecting to url..."
+                    syncError = true
+                }
+            }
+        task.saveTaskData()
+        syncTaskUpdated = true
+        task.printData()
     }
 
     
