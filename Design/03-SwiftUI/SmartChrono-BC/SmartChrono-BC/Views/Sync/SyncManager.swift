@@ -156,6 +156,42 @@ struct SyncManager: View {
             
         }
         syncRecordSend = true
+        
+        // Project update
+        parameters = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute",
+                "args": [settings.DB, settings.login, userPassword, "project.project", "search_read",
+                         [],
+                         ["name"]
+                        ]
+                ]
+            ]
+        AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String: Any], let resultArray = json["result"] as? [Int] {
+                        for item in resultArray {
+                            if let itemDict = item as? [String:Any], let id = itemDict["id"] as? Int, let name = itemDict["name"] as? String {
+                                // Rajouter le projet à l'objet Project
+                            } else {
+                                print("invalid response from Odoo")
+                                syncErrorMsg = "Invalid response from Odoo server..."
+                                syncError = true
+                                return
+                            }
+                        
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+                    syncErrorMsg = "Error connecting to url..."
+                    syncError = true
+                }
+            }
     
     }
 

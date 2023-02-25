@@ -34,4 +34,8 @@ class Task {
             }
         }
     }
+    
+    func flush() {
+        self.taskData = [:]
+    }
 }

@@ -34,5 +34,9 @@ class Project {
             }
         }
     }
+    
+    func flush() {
+        self.projectData = [:]
+    }
 }
 
