@@ -14,6 +14,7 @@ struct ViewChrono: View {
     
     @State var duration:Int = 0
     @State var displayDuration:String = "00:00:00"
+    @State var chronoRunning:Bool = false
     
     @State var chronoState:Int = 0
     // 0 : View Ask Project & task
@@ -35,9 +36,45 @@ struct ViewChrono: View {
         
     }
     
+    //Switch to startUp
+    func chronoSwitchTostartup(){
+        //Reset to 0
+        duration = 0
+        displayDuration = "00:00:00"
+        //Switch view
+        chronoState = 1
+    }
+    
+    //Launch Chrono & switch view
+    func chronoLaunch(){
+        chronoState = 2
+        chronoRunning = true
+    }
     
     
 //--------------------------------
+    //CHRONO engine
+    func chronoEngine() {
+        // Lance un thread qui s'executera exactement une seconde après sa définition
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            // Bool permettant d'arreter ou de compter le chrono
+            if chronoRunning {
+                duration += 1
+                
+                // Formattage pour l'affichage.
+                let hours = self.duration / 3600
+                let minutes = (self.duration % 3600) / 60
+                let seconds = (self.duration % 3600) % 60
+                
+                displayDuration = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+            }
+            
+            // Se relance dès que fini afin de tourner en boucle
+            chronoEngine()
+        }
+    }
+//--------------------------------
+
     var body: some View {
         //Main task
         VStack{
@@ -74,7 +111,7 @@ struct ViewChrono: View {
                     
                     //Button to start Chrono
                     if (selectedTaskId != 0 && selectedProjectId != 0){
-                        Button(action: dummy){
+                        Button(action: chronoSwitchTostartup){
                             Image(systemName: "play.fill")
                                 .foregroundColor(Color.black)
                                 .font(.system(size: 30))
@@ -334,7 +371,7 @@ struct ViewChrono: View {
             
             
         }//END Stack
-        .onAppear{test()}
+        .onAppear{chronoEngine()}
     }
 }
 
