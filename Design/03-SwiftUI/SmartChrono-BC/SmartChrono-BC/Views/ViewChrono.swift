@@ -15,6 +15,7 @@ struct ViewChrono: View {
     @State var duration:Int = 0
     @State var displayDuration:String = "00:00:00"
     @State var chronoRunning:Bool = false
+    @State var threadChronoLock:Bool = false
     
     @State var chronoState:Int = 0
     // 0 : View Ask Project & task
@@ -47,30 +48,103 @@ struct ViewChrono: View {
     
     //Launch Chrono & switch view
     func chronoLaunch(){
+        print("Start running chrono")
         chronoState = 2
         chronoRunning = true
     }
     
+    //Pause chrono & switch view
+    func chronoPause(){
+        chronoRunning = false
+        chronoState = 3
+    }
+    
+    //Switch to ask save
+    func chronoSwitchToAskSave() {
+        chronoRunning = false
+        chronoState = 6
+    }
+    
+    //Switch to ask delete
+    func chronoSwitchToAskDelete(){
+        chronoRunning = false
+        chronoState = 4
+    }
+    
+    //Save time
+    func chronoSave(){
+        //Fonction pour générer une chaien random
+        func generateRandomString(length: Int) -> String {
+            let lettersAndDigits = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            return String((0..<length).map{ _ in lettersAndDigits.randomElement()! })
+        }
+        //Fonction pour générer la date d'enregistrement du record
+        func getTodaysDate() -> String {
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
+        }
+
+        let date = getTodaysDate()
+        let id = generateRandomString(length: 8)
+        var record = Record()
+        
+        //Save
+        record.addRecord(date: date, id: id, duration: duration, project: selectedProjectId, task: selectedTaskId)
+    
+        //haptic
+        let impact = UIImpactFeedbackGenerator(style: .soft)
+        impact.impactOccurred()
+        
+        //Reset
+        chronoRunning = false
+        duration = 0
+        chronoState = 7
+    }
+
+    //Delete time
+    func chronoDelete(){
+        //haptic
+        let impact = UIImpactFeedbackGenerator(style: .rigid)
+        impact.impactOccurred()
+        
+        chronoRunning = false
+        duration = 0
+        displayDuration = "00:00:00"
+        chronoState = 5
+    }
     
 //--------------------------------
     //CHRONO engine
     func chronoEngine() {
-        // Lance un thread qui s'executera exactement une seconde après sa définition
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            // Bool permettant d'arreter ou de compter le chrono
-            if chronoRunning {
-                duration += 1
+        // threadChronoLock sert à n'avoir qu'un seul thread qui compte
+        // Si par hasard dans le code on arrive à lancer 2 queues
+        // on compterait +2 secondes a la fois
+        if (threadChronoLock == false){
+            threadChronoLock = true
+            // Lance un thread qui s'executera exactement une seconde après sa définition
+            DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
                 
-                // Formattage pour l'affichage.
-                let hours = self.duration / 3600
-                let minutes = (self.duration % 3600) / 60
-                let seconds = (self.duration % 3600) % 60
+                // Bool permettant d'arreter ou de compter le chrono
+                if chronoRunning {
+                    duration += 1
+                    
+                    // Formattage pour l'affichage.
+                    let hours = self.duration / 3600
+                    let minutes = (self.duration % 3600) / 60
+                    let seconds = (self.duration % 3600) % 60
+                    
+                    displayDuration = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+                }
                 
-                displayDuration = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+                // Se relance dès que fini afin de tourner en boucle
+                threadChronoLock = false
+                chronoEngine()
             }
-            
-            // Se relance dès que fini afin de tourner en boucle
-            chronoEngine()
+        } else {
+            // Dans le cas ou le thread est bloqué, pour éviter un double comptage
+            return
         }
     }
 //--------------------------------
@@ -146,7 +220,7 @@ struct ViewChrono: View {
                         .padding(60)
                     
                     //play button
-                    Button(action: dummy ){
+                    Button(action: chronoLaunch ){
                         Image(systemName: "play.fill")
                             .font(.system(size: 30))
                             .foregroundColor(Color.black)
@@ -181,7 +255,7 @@ struct ViewChrono: View {
                         .padding(60)
                     
                     //play button
-                    Button(action: dummy ){
+                    Button(action: chronoPause ){
                         Image(systemName: "pause.fill")
                             .font(.system(size: 30))
                             .foregroundColor(Color.black)
@@ -217,7 +291,7 @@ struct ViewChrono: View {
                     HStack{
                         
                         //Play button
-                        Button(action: dummy){
+                        Button(action: chronoLaunch){
                             Image(systemName: "play.fill")
                                 .font(.system(size: 30))
                                 .foregroundColor(Color.black)
@@ -228,7 +302,7 @@ struct ViewChrono: View {
                         .clipShape(Circle())
                         
                         //Save button
-                        Button(action: dummy){
+                        Button(action: chronoSwitchToAskSave){
                             Image(systemName: "square.and.arrow.down")
                                 .font(.system(size: 30))
                                 .foregroundColor(Color.black)
@@ -239,7 +313,7 @@ struct ViewChrono: View {
                         .clipShape(Circle())
                         
                         //Delete button
-                        Button(action: dummy){
+                        Button(action: chronoSwitchToAskDelete){
                             Image(systemName: "trash.fill")
                                 .font(.system(size: 30))
                                 .foregroundColor(Color.black)
@@ -263,7 +337,7 @@ struct ViewChrono: View {
                     
                     HStack{
                         //Delete for real button
-                        Button(action: dummy){
+                        Button(action: chronoDelete){
                             Image(systemName: "trash.fill")
                                 .font(.system(size: 30))
                                 .foregroundColor(Color.black)
@@ -277,7 +351,7 @@ struct ViewChrono: View {
                             .frame(width: 50)
                         
                         //No delete return to pause
-                        Button(action: dummy){
+                        Button(action: chronoPause){
                             Image(systemName: "arrow.backward")
                                 .font(.system(size: 30))
                                 .foregroundColor(Color.black)
@@ -299,7 +373,7 @@ struct ViewChrono: View {
                         .padding()
                     
                     //Return to state 0
-                    Button(action: dummy){
+                    Button(action: chronoSwitchTostartup ){
                         Image(systemName: "arrow.backward")
                             .font(.system(size: 30))
                             .foregroundColor(Color.black)
@@ -321,7 +395,7 @@ struct ViewChrono: View {
                     
                     HStack{
                         //Save for real
-                        Button(action: dummy){
+                        Button(action: chronoSave){
                             Image(systemName: "square.and.arrow.down")
                                 .font(.system(size: 30))
                                 .foregroundColor(Color.black)
@@ -335,7 +409,7 @@ struct ViewChrono: View {
                             .frame(width: 50)
                         
                         //No save return to pause
-                        Button(action: dummy){
+                        Button(action: chronoPause){
                             Image(systemName: "arrow.backward")
                                 .font(.system(size: 30))
                                 .foregroundColor(Color.black)
@@ -357,7 +431,7 @@ struct ViewChrono: View {
                         .padding()
                     
                     //Return to state 0
-                    Button(action: dummy){
+                    Button(action: chronoSwitchTostartup){
                         Image(systemName: "arrow.backward")
                             .font(.system(size: 30))
                             .foregroundColor(Color.black)

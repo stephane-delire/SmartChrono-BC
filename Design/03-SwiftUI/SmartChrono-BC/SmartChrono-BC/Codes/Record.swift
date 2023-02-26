@@ -26,23 +26,25 @@ class Record {
                 }
             } else {
                 self.data = []
+                self.saveData()
             }
         } else {
             self.data = []
+            print("-- Record : error with fileURL")
         }
     }
     
-    func addRecord(date: Date, id: String, duration: Int, project: String, task: String) {
+    func addRecord(date: String, id: String, duration: Int, project: Int, task: Int) {
         let newRecord = ["date": date, "id": id, "duration": duration, "project": project, "task": task] as [String : Any]
         self.data.append(newRecord)
-        saveData()
+        self.saveData()
     }
     
     func count() -> Int {
         return self.data.count
     }
     
-    private func saveData() {
+    func saveData() {
         if let url = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = url.appendingPathComponent(filename)
             do {
