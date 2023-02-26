@@ -10,6 +10,11 @@ import SwiftUI
 struct ViewRecord: View {
     @State var records = Record()
     
+    //Test function delete when needed
+    func test(index:Int){
+        print(records.data[index])
+    }
+    
     var body: some View {
         NavigationView{
             if records.data.isEmpty {
@@ -23,17 +28,25 @@ struct ViewRecord: View {
                 }
                 .navigationTitle("Records")
             } else {
-                ForEach(records.data.indices, id: \.self) { index in
-                    HStack {
-                        Text("Record \(index + 1) : \(records.data[index].description)")
-                        Button(action: {
-                            records.data.remove(at: index)
-                        }){
-                            Image(systemName: "trash")
+                VStack{
+                    ForEach(records.data.indices, id: \.self) { index in
+                        HStack {
+                            
+                            Text("Record \(index) : \(records.data[index]["date"]!) - Project : \(records.data[index]["project"]!) - Duration : \(records.data[index]["duration"]!)" as String)
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                records.data.remove(at: index)
+                            }){
+                                Image(systemName: "trash")
+                            }
                         }
+                        .onAppear{test(index: index)}
+                        .padding()
                     }
-                    .navigationTitle("Records")
                 }
+                .navigationTitle("Records")
             }
         }
     }

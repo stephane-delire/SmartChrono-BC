@@ -146,16 +146,13 @@ func launchSync() {
             // Send record
             func sendRecord(){
                 print("Sending records...")
-            for record in record.data {
-                let date = record["date"] as? Date ?? Date()
-                let id = record["id"] as? String ?? ""
-                let duration = record["duration"] as? Int ?? 0
-                let projectId = record["project"] as? String ?? ""
-                let taskId = record["task"] as? String ?? ""
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-mm-dd"
-                let dateString = dateFormatter.string(from: date)
+            for item in record.data {
+                let date = item["date"] as? String
+                let id = item["id"] as? String ?? ""
+                let duration = item["duration"] as? Int ?? 0
+                let projectId = item["project"] as? Int ?? 0
+                let taskId = item["task"] as? Int ?? 0
+
                 
                 let headers: HTTPHeaders = [
                     "Content-Type": "application/json",
@@ -170,7 +167,7 @@ func launchSync() {
                         "method": "execute",
                         "args": [settings.DB, userID as Any, userPassword, "account.analytic.line", "create", [
                             "project_id":projectId,
-                            "date":dateString, //yyyy-mm-dd
+                            //"date":date, //yyyy-mm-dd
                             "task_id":taskId,
                             "unit_amount":Float(duration)/3600.0
                         ]
@@ -178,7 +175,9 @@ func launchSync() {
                     ]
                 ]
                 print("send record : \(id)")
-                AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers)
+                AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding:
+                //AF.request("https://httpbin.org/post", method: .post, parameters: parameters,encoding:
+                            JSONEncoding.default, headers: headers)
                     .responseJSON { response in
                         switch response.result {
                         case .success(let value):
@@ -186,9 +185,13 @@ func launchSync() {
                                 let resp = json["result"] as? Int
                                 if(resp == nil){
                                     print("error authenticate...")
-                                    syncErrorMsg = "Authentication error during send record, check your password and your login"
+                                    syncErrorMsg = "Authentication error during send record, check your password and your login. Or contact your administrator."
                                     syncError = true
                                     return
+                                } else {
+                                    // Delete record now everything's good
+                                    print("-- Deleting record : \(id)")
+                                    record.data.removeAll(where: { $0["id"] as? String == id })
                                 }
                             }
                         case .failure(let error):

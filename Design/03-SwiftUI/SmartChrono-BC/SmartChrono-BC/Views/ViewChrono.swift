@@ -88,7 +88,7 @@ struct ViewChrono: View {
 
         let date = getTodaysDate()
         let id = generateRandomString(length: 8)
-        var record = Record()
+        let record = Record()
         
         //Save
         record.addRecord(date: date, id: id, duration: duration, project: selectedProjectId, task: selectedTaskId)
@@ -113,6 +113,15 @@ struct ViewChrono: View {
         duration = 0
         displayDuration = "00:00:00"
         chronoState = 5
+    }
+    
+    //Back to 0
+    func chronoBackTo0() {
+        //Reset to 0
+        duration = 0
+        displayDuration = "00:00:00"
+        
+        chronoState = 0
     }
     
 //--------------------------------
@@ -373,7 +382,7 @@ struct ViewChrono: View {
                         .padding()
                     
                     //Return to state 0
-                    Button(action: chronoSwitchTostartup ){
+                    Button(action: chronoBackTo0 ){
                         Image(systemName: "arrow.backward")
                             .font(.system(size: 30))
                             .foregroundColor(Color.black)
@@ -431,7 +440,7 @@ struct ViewChrono: View {
                         .padding()
                     
                     //Return to state 0
-                    Button(action: chronoSwitchTostartup){
+                    Button(action: chronoBackTo0){
                         Image(systemName: "arrow.backward")
                             .font(.system(size: 30))
                             .foregroundColor(Color.black)
