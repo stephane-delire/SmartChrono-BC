@@ -17,6 +17,12 @@ struct ViewChrono: View {
     @State var chronoRunning:Bool = false
     @State var threadChronoLock:Bool = false
     
+    // Var for manual entry
+    @State var manualSelectedHours:Int = 0
+    @State var manualSelectedMinutes:Int = 0
+    @State var manualHours = [Int](0...23)
+    @State var manualMinutes = [Int](0...59)
+    
     @State var chronoState:Int = 0
     // 0 : View Ask Project & task
     // 1 : View chrono Start up
@@ -26,6 +32,7 @@ struct ViewChrono: View {
     // 5 : View chrono Deleted
     // 6 : View chrono ask Save
     // 7 : View chrono Saved
+    // 8 : Manual entry
     
     let project = Project()
     let task = Task()
@@ -124,6 +131,52 @@ struct ViewChrono: View {
         chronoState = 0
     }
     
+    //Switch to manual entry
+    func chronoSwitchToManualEntry(){
+        chronoState = 8
+    }
+    
+    //Ask save manual
+    func chronoAskSaveManual(){
+        chronoState = 9
+    }
+    
+    //Save manual entry
+    func chronoSaveManual() {
+        //Fonction pour générer une chaine random
+        func generateRandomString(length: Int) -> String {
+            let lettersAndDigits = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            return String((0..<length).map{ _ in lettersAndDigits.randomElement()! })
+        }
+        //Fonction pour générer la date d'enregistrement du record
+        func getTodaysDate() -> String {
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
+        }
+
+        let date = getTodaysDate()
+        let id = generateRandomString(length: 8)
+        let record = Record()
+        
+        //Modification de duration comme c'est manuel
+        let HH = manualSelectedHours * 3600
+        let MM = manualSelectedMinutes * 60
+        duration = HH + MM
+        
+        //Save
+        record.addRecord(date: date, id: id, duration: duration, project: selectedProjectId, task: selectedTaskId)
+    
+        //haptic
+        let impact = UIImpactFeedbackGenerator(style: .soft)
+        impact.impactOccurred()
+        
+        //Reset
+        duration = 0
+        chronoState = 0
+    }
+    
 //--------------------------------
     //CHRONO engine
     func chronoEngine() {
@@ -194,10 +247,12 @@ struct ViewChrono: View {
                     
                     //Button to start Chrono
                     if (selectedTaskId != 0 && selectedProjectId != 0){
-                        Button(action: chronoSwitchTostartup){
+                        Button(action: {}){
                             Image(systemName: "play.fill")
                                 .foregroundColor(Color.black)
                                 .font(.system(size: 30))
+                                .onTapGesture{chronoSwitchTostartup()}
+                                .onLongPressGesture(minimumDuration: 0.5){chronoSwitchToManualEntry()}
                         }
                         .frame(width: 75, height: 75)
                         .background(Color("backgroundButton"))
@@ -450,6 +505,119 @@ struct ViewChrono: View {
                     .background(Color("backgroundButton"))
                     .clipShape(Circle())
                 }
+            }
+            
+            //Manual entry
+            if chronoState == 8 {
+                NavigationView{
+                    Group{
+                        VStack{
+                            
+                            HStack{
+                                Text("Project ID : ")
+                                
+                                Text(String(selectedProjectId))
+                                    .foregroundColor(Color.accentColor)
+                            }
+                            HStack{
+                                Text("Task ID : ")
+                                Text(String(selectedTaskId))
+                                    .foregroundColor(Color.accentColor)
+                            }
+                            
+                            // Multi Picker
+                            //https://www.hackingwithswift.com/forums/swiftui/custom-multicomponent-picker-pure-swiftui/2236
+                            HStack{
+                                //Hours
+                                Picker("Hours", selection: $manualSelectedHours) {
+                                    ForEach(0..<manualHours.count){ index in
+                                        Text("\(self.manualHours[index])")
+                                    }
+                                }
+                                .pickerStyle(WheelPickerStyle())
+                                .labelsHidden()
+                                .frame(width:75)
+                                .clipped()
+                                //Separator
+                                Text(":")
+                                //Minutes
+                                Picker("Minutes", selection: $manualSelectedMinutes) {
+                                    ForEach(0..<manualMinutes.count){ index in
+                                        Text("\(self.manualMinutes[index])")
+                                    }
+                                }
+                                .pickerStyle(WheelPickerStyle())
+                                .labelsHidden()
+                                .frame(width:75)
+                                .clipped()
+                            } // End multipicker
+                            
+                            // Button zone
+                            HStack{
+                                Button(action: chronoBackTo0 ){
+                                    Image(systemName: "arrow.backward")
+                                        .foregroundColor(Color.black)
+                                        .font(.system(size: 30))
+                                }
+                                .frame(width: 75, height: 75)
+                                .background(Color("backgroundButton"))
+                                .clipShape(Circle())
+                                .padding()
+                                
+                                Spacer()
+                                    .frame(width:50)
+                                
+                                Button(action: chronoAskSaveManual ){
+                                    Image(systemName: "square.and.arrow.down")
+                                        .foregroundColor(Color.black)
+                                        .font(.system(size: 30))
+                                }
+                                .frame(width: 75, height: 75)
+                                .background(Color("backgroundButton"))
+                                .clipShape(Circle())
+                                .padding()
+                            }
+                        }// End main VStack
+                    }// End group
+                    .navigationTitle("Manual entry")
+                }// End NavigationView
+            }
+            
+            //Ask save manual entry
+            if chronoState == 9 {
+                Group{
+                    Text("Are you sure ?\n Once saved, it will no longer be possible to modify values.")
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    
+                    HStack{
+                        //Save for real
+                        Button(action: chronoSaveManual){
+                            Image(systemName: "square.and.arrow.down")
+                                .font(.system(size: 30))
+                                .foregroundColor(Color.black)
+                        }
+                        .padding()
+                        .frame(width: 75, height: 75)
+                        .background(Color("backgroundButton"))
+                        .clipShape(Circle())
+                        
+                        Spacer()
+                            .frame(width: 50)
+                        
+                        //No save return to 0
+                        Button(action: chronoSwitchToManualEntry ){
+                            Image(systemName: "arrow.backward")
+                                .font(.system(size: 30))
+                                .foregroundColor(Color.black)
+                        }
+                        .padding()
+                        .frame(width: 75, height: 75)
+                        .background(Color("backgroundButton"))
+                        .clipShape(Circle())
+                    }
+                }// End group
             }
             
             
