@@ -1,0 +1,22 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "1fde4904a2616709e46e9fa248bb13d964aabb257b1a758f1fc6b2a7ecd63e56"
+build_start_time: [1677526772, 157517910]
+build_end_time: [1677526772, 242048025]
+inputs:
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/BtnBar.swift": !dirty [1677347578, 145050525]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Codes/Dummy.swift": !dirty [1676810201, 266589879]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Codes/Project.swift": !dirty [1677348097, 77326536]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Codes/Record.swift": !dirty [1677515915, 759437084]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Codes/Settings.swift": !dirty [1677347149, 226932048]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Codes/Task.swift": !dirty [1677347149, 227197647]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/ContentView.swift": !dirty [1677347149, 227486133]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/SmartChrono_BCApp.swift": !dirty [1676803104, 786440849]
+  ? "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Views/Burniaux-Consulting HelpBox/HelpBox.swift"
+  : !dirty [1676806718, 111566543]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Views/Sync/AskPsw.swift": !dirty [1677347149, 227849721]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Views/Sync/SyncManager.swift": !dirty [1677526420, 170411586]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Views/ViewChrono.swift": !dirty [1677523133, 96218109]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Views/ViewHelp.swift": !dirty [1676805759, 218835115]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Views/ViewRecord.swift": !dirty [1677439951, 858409881]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Views/ViewSettings.swift": !dirty [1677347149, 228239297]
+  "/Users/steph/Desktop/SmartChrono-BC/Design/03-SwiftUI/SmartChrono-BC/SmartChrono-BC/Views/ViewSync.swift": !dirty [1677347149, 228355884]
