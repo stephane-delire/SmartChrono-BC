@@ -86,8 +86,12 @@ func launchSync() {
             //Record
             textString = "Loading record"
             var record = Record()
+            
+            @State var syncNumberOfRecord:Int = 0
+            syncNumberOfRecord = record.count()
+            
             syncRecordLoaded = true
-
+            
         
             //Retrieve ID
             func retrieveID(){
@@ -146,6 +150,7 @@ func launchSync() {
             // Send record
             func sendRecord(){
                 print("Sending records...")
+                
             for item in record.data {
                 let date = item["date"] as? String
                 let id = item["id"] as? String ?? ""
@@ -159,7 +164,6 @@ func launchSync() {
                     "User-Agent": "SmartChrono",
                     "Connection": "keep-alive"
                 ]
-                
                 var parameters: Parameters = [
                     "jsonrpc": "2.0",
                     "params": [
@@ -174,9 +178,9 @@ func launchSync() {
                                 ]
                     ]
                 ]
+                
                 print("send record : \(id)")
                 AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding:
-                //AF.request("https://httpbin.org/post", method: .post, parameters: parameters,encoding:
                             JSONEncoding.default, headers: headers)
                     .responseJSON { response in
                         switch response.result {
@@ -189,9 +193,8 @@ func launchSync() {
                                     syncError = true
                                     return
                                 } else {
-                                    // Delete record now everything's good
-                                    print("-- Deleting record : \(id)")
-                                    record.data.removeAll(where: { $0["id"] as? String == id })
+                                    //Decrement counter
+                                    syncNumberOfRecord -= 1
                                 }
                             }
                         case .failure(let error):
@@ -204,7 +207,7 @@ func launchSync() {
             // Third call
             projectUpdate()
             
-            syncRecordSend = true
+            //syncRecordSend = true
         }
             
             // Project update
@@ -309,10 +312,9 @@ func launchSync() {
                         task.saveTaskData()
                         syncTaskUpdated = true
                         
-    // END SYNC! --------------------------------------------------------
-                            syncShowProgress = false
-                            syncIsDone = true
-                            print("===== End sync =====")
+                        //Fifth call
+                        syncEndSync()
+                            
                         
                     } else {
                         print("Cast probleme with JSON recieved! in Task Update")
@@ -323,6 +325,18 @@ func launchSync() {
                     syncError = true
                 }
             }
+    }
+    
+    func syncEndSync() {
+        while syncIsDone == false{
+            if syncNumberOfRecord <= 0 {
+                record.flush()
+                syncRecordSend = true
+                syncShowProgress = false
+                syncIsDone = true
+                print("===== End sync =====")
+            }
+        }
     }
     
         // Adding serial DispatchQueue for synchronous call.

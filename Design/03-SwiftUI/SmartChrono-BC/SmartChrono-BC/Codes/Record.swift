@@ -56,5 +56,9 @@ class Record {
         }
     }
     
+    func flush() {
+        self.data = []
+        self.saveData()
+    }
 }
 
