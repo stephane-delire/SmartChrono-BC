@@ -129,10 +129,10 @@ struct login: View {
                             .foregroundColor(Color.white)
                             .background(Color("Turquoise"))
                             .frame(width:315, height: 32)
-                            .cornerRadius(16)
+                            //.overlay(RoundedRectangle(cornerRadius: 8))
                         
                     }
-                    .cornerRadius(16)
+                    .cornerRadius(8)
                     .background(Color("Turquoise"))
                     .padding(.top, 32)
                     
