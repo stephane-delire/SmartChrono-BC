@@ -16,7 +16,7 @@ struct login: View {
     
     @State var userShowPassword:Bool = false
     
-    @State var loginState:Int = 6
+    @State var loginState:Int = 0
     // 0 : Login
     // 1 : Settings
     // 2 : Working Settings
