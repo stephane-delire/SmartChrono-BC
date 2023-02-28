@@ -11,7 +11,7 @@ import SwiftUI
 struct SmartChrono_BCApp: App {
     var body: some Scene {
         WindowGroup {
-            BtnBar()
+            ContentView()
         }
     }
 }
