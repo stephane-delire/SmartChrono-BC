@@ -26,16 +26,17 @@ struct BtnBar: View {
                     Text("Record")
                 }
             /*ViewSettings()
-                .tabItem{
-                    Image(systemName:"gear")
-                    Text("Settings")
-                }*/
+             .tabItem{
+             Image(systemName:"gear")
+             Text("Settings")
+             }*/
             ViewHelp()
                 .tabItem{
                     Image(systemName:"questionmark.circle")
                     Text("Help")
                 }
-        }
+        }//End TabView
+
     }
 }
 

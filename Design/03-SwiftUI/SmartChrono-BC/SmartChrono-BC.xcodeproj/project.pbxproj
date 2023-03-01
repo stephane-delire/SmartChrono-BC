@@ -97,11 +97,11 @@
 				9776B3C329A24DA60021E2E2 /* Codes */,
 				9776B3BB29A233C50021E2E2 /* Views */,
 				9776B3B929A231120021E2E2 /* BtnBar.swift */,
-				9776B3AB29A2309C0021E2E2 /* SmartChrono_BCApp.swift */,
+				97872DE729AE729C00FD5E36 /* login.swift */,
 				9776B3AD29A2309C0021E2E2 /* ContentView.swift */,
+				9776B3AB29A2309C0021E2E2 /* SmartChrono_BCApp.swift */,
 				9776B3AF29A2309E0021E2E2 /* Assets.xcassets */,
 				9776B3B129A2309E0021E2E2 /* Preview Content */,
-				97872DE729AE729C00FD5E36 /* login.swift */,
 			);
 			path = "SmartChrono-BC";
 			sourceTree = "<group>";

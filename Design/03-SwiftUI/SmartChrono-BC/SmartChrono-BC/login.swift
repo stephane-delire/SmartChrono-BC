@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Alamofire
 
 struct login: View {
     
@@ -25,10 +26,11 @@ struct login: View {
     // 5 : Try To authenticate
     // 6 : Success
     // 7 : Error authentication
+    // TODO : Error URL
     
     // Obj
-    let user = User()
-    let settings = Settings()
+    var user = User()
+    var settings = Settings()
 
 //-----------------------------------------
     func loginToggleShowPassword(){
@@ -63,6 +65,8 @@ struct login: View {
         loginState = 4
     }
     func loginSwitchToTryAuthenticate(){
+        user.login = userLogin
+        user.saveUser()
         loginState = 5
     }
     func loginSwitchToSuccessAuthenticate(){
@@ -72,12 +76,81 @@ struct login: View {
         loginState = 7
     }
     
+    
 //---Functions------------------------------
-    
-    
+    // RetrieveAndUpdateSettings
+    func retrieveAndUpdateSettings(){
+        // Reload OBJ
+        settings.reload()
+        // Restate var
+        userSettingUrl = settings.url
+        userSettingDB = settings.DB
+    }
+    func saveSettings(){
+        // Insert textfield value into object
+        settings.url = userSettingUrl
+        settings.DB = userSettingDB
+        settings.saveSettings()
+        loginState = 4
+    }
+    // RetrieveUserLogin
+    func retrieveUserLogin(){
+        user.reload()
+        userLogin = user.login
+    }
+    // Authentication
+    func tryToAuthenticate(){
+        // Saving User's data
+        user.login = userLogin
+        user.password = userPassword
+        user.saveUser()
+        
+        // Making request
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "User-Agent": "SmartChrono",
+            "Connection": "keep-alive"
+        ]
+        let parameters: Parameters = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "common",
+                "method": "login",
+                "args": [settings.DB, user.login, user.password]
+            ]
+        ]
+        
+        AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String: Any] {
+                        print("!Success JSON-RPC!")
+                        if let result = json["result"] as? Int {user.id = result}
+                        else {user.id = 0}
+                        print("Retrieve user id : \(user.id)")
+                        
+                        if(user.id == 0){
+                            print("error authenticate...")
+                            loginSwitchToErrorAuthenticate()
+                            return
+                        }
+                        else {
+                            // Save user id for later use
+                            user.saveUser()
+                            // Switch view
+                            loginSwitchToSuccessAuthenticate()
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+                    loginSwitchToErrorAuthenticate()
+                    return
+                }
+            }
+    }
     
     var body: some View {
-        
         //Login page
         if loginState == 0 {
             Group{
@@ -192,6 +265,9 @@ struct login: View {
                 }
                 .padding()
                 .frame(width: 375)
+                .onAppear{
+                    retrieveUserLogin()
+                }
             }
         }
         
@@ -281,6 +357,9 @@ struct login: View {
                 }
                 .padding()
                 .frame(width: 375)
+                .onAppear{
+                    retrieveAndUpdateSettings()
+                }
             }
         }
         
@@ -299,6 +378,12 @@ struct login: View {
                 }
                 .padding()
                 .frame(width: 375)
+            }
+            .onAppear{
+                saveSettings()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    loginState = 4
+                }
             }
         }
         
@@ -400,6 +485,7 @@ struct login: View {
                 }
                 .padding()
                 .frame(width: 375)
+                .onAppear{tryToAuthenticate()}
             }
         }
         
@@ -458,6 +544,7 @@ struct login: View {
                         .foregroundColor(Color("Turquoise"))
                     Text("Success.")
                     
+                    
                     Spacer()
                     
                     ProgressView()
@@ -467,11 +554,44 @@ struct login: View {
                 }
                 .padding()
                 .frame(width: 375)
-                .onAppear{hapticVibrateSuccess()}
+                .onAppear{
+                    hapticVibrateSuccess()
+                    //loginState = 8
+                    //On laisse un peu de temps pour afficher le bel écran que j'ai mit du temps à coder
+                    //Mine de rien c'est ultra rapide...
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        loginState = 8
+                    }
+                }
+                
             }
         }
         
-        
+        // TabView - BtnBar integration
+        if loginState == 8 {
+            TabView{
+                ViewChrono()
+                    .tabItem {
+                        Image(systemName:"timer")
+                        Text("Chrono")
+                    }
+                ViewSync()
+                    .tabItem{
+                        Image(systemName:"icloud")
+                        Text("Sync")
+                    }
+                ViewRecord()
+                    .tabItem{
+                        Image(systemName:"folder")
+                        Text("Record")
+                    }
+                ViewHelp()
+                    .tabItem{
+                        Image(systemName:"questionmark.circle")
+                        Text("Help")
+                    }
+            }//End TabView
+        }
     }//End view
 }//End Struct
 

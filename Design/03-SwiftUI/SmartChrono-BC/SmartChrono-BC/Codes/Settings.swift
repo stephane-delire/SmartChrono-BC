@@ -57,4 +57,24 @@ class Settings: Codable {
         }
     }
     
+    func reload(){
+        var fileURL:URL
+        let fm = FileManager.default
+        let dir = fm.urls(for: .documentDirectory, in: .userDomainMask)
+        if dir.count != 0 {
+            fileURL = dir[0].appendingPathComponent("settings.json")
+        } else {
+            print("class Settings - unable to obtain a valid file path")
+            return;
+        }
+        
+        if let data = try? Data(contentsOf: fileURL), let settings = try? JSONDecoder().decode(Settings.self, from: data) {
+            self.url = settings.url
+            self.DB = settings.DB
+        } else {
+            self.url = ""
+            self.DB = ""
+        }
+    }
+    
 }

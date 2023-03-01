@@ -59,4 +59,26 @@ class User: Codable {
         }
     }
     
+    func reload() {
+        var fileURL:URL
+        let fm = FileManager.default
+        let dir = fm.urls(for: .documentDirectory, in: .userDomainMask)
+        if dir.count != 0 {
+            fileURL = dir[0].appendingPathComponent("user.json")
+        } else {
+            print("class User - unable to obtain a valid file path")
+            return;
+        }
+        
+        if let data = try? Data(contentsOf: fileURL), let user = try? JSONDecoder().decode(User.self, from: data) {
+            self.login = user.login
+            self.password = user.password
+            self.id = user.id
+        } else {
+            self.login = ""
+            self.password = ""
+            self.id = 0
+        }
+    }
+    
 }
