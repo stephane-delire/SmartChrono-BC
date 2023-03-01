@@ -60,13 +60,15 @@ func launchSync() {
             syncShowProgress = true
             print("===== Begin Sync =====")
     
+            // User
+            let user = User()
+    
             //Settings
             textString = "Loading settings"
             let settings = Settings()
             print(settings.url)
-            print(settings.login)
             print(settings.DB)
-            if (settings.url == "" || settings.login == "" || settings.DB == ""){
+            if (settings.url == "" || settings.DB == ""){
              syncErrorMsg = "in loading settings"
              syncError = true
              return;
@@ -106,7 +108,7 @@ func launchSync() {
                     "params": [
                         "service": "common",
                         "method": "login",
-                        "args": [settings.DB, settings.login, userPassword] //Don't forget to change to userPassword
+                        "args": [settings.DB, user.login, userPassword]
                     ]
                 ]
                 AF.request(settings.url + "/jsonrpc", method: .post, parameters: parameters,encoding: JSONEncoding.prettyPrinted, headers: headers)

@@ -5,6 +5,8 @@
 //  Created by Delire Stéphane on 19/02/2023.
 //
 
+// TO BE DELETED !
+
 import SwiftUI
 
 struct ViewSettings: View {
@@ -19,14 +21,14 @@ struct ViewSettings: View {
     
     func initializeView(){
         inputURL = settings.url
-        inputlogin = settings.login
+        //inputlogin = settings.login
         inputDB = settings.DB
         saveState = false
     }
     
     func saveSettings(){
         settings.url = inputURL
-        settings.login = inputlogin
+        //settings.login = inputlogin
         settings.DB = inputDB
         
         settings.saveSettings()

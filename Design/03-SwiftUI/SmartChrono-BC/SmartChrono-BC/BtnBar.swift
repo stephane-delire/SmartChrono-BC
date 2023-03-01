@@ -25,11 +25,11 @@ struct BtnBar: View {
                     Image(systemName:"folder")
                     Text("Record")
                 }
-            ViewSettings()
+            /*ViewSettings()
                 .tabItem{
                     Image(systemName:"gear")
                     Text("Settings")
-                }
+                }*/
             ViewHelp()
                 .tabItem{
                     Image(systemName:"questionmark.circle")

@@ -25,6 +25,11 @@ struct login: View {
     // 5 : Try To authenticate
     // 6 : Success
     // 7 : Error authentication
+    
+    // Obj
+    let user = User()
+    let settings = Settings()
+
 //-----------------------------------------
     func loginToggleShowPassword(){
         if userShowPassword == false {
@@ -66,6 +71,10 @@ struct login: View {
     func loginSwitchToErrorAuthenticate(){
         loginState = 7
     }
+    
+//---Functions------------------------------
+    
+    
     
     var body: some View {
         
