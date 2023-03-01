@@ -27,6 +27,7 @@
 		9776B3CB29A2B1330021E2E2 /* ViewRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776B3CA29A2B1330021E2E2 /* ViewRecord.swift */; };
 		977F333D29AA824E00671B8B /* ViewChrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977F333C29AA824E00671B8B /* ViewChrono.swift */; };
 		97872DE829AE729C00FD5E36 /* login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97872DE729AE729C00FD5E36 /* login.swift */; };
+		97C674A029AFBBB4002CC8BE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C6749F29AFBBB4002CC8BE /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		9776B3CA29A2B1330021E2E2 /* ViewRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecord.swift; sourceTree = "<group>"; };
 		977F333C29AA824E00671B8B /* ViewChrono.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewChrono.swift; sourceTree = "<group>"; };
 		97872DE729AE729C00FD5E36 /* login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = login.swift; sourceTree = "<group>"; };
+		97C6749F29AFBBB4002CC8BE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				9776B3C829A2ADC40021E2E2 /* Record.swift */,
 				9742FA4029A3D1F80071C242 /* Project.swift */,
 				97424DB729A929D800F6D5D9 /* Task.swift */,
+				97C6749F29AFBBB4002CC8BE /* User.swift */,
 			);
 			path = Codes;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				9742FA4129A3D1F80071C242 /* Project.swift in Sources */,
 				9776B3C029A238E30021E2E2 /* HelpBox.swift in Sources */,
 				9776B3AE29A2309C0021E2E2 /* ContentView.swift in Sources */,
+				97C674A029AFBBB4002CC8BE /* User.swift in Sources */,
 				97424DB829A929D800F6D5D9 /* Task.swift in Sources */,
 				9776B3AC29A2309C0021E2E2 /* SmartChrono_BCApp.swift in Sources */,
 				977F333D29AA824E00671B8B /* ViewChrono.swift in Sources */,
