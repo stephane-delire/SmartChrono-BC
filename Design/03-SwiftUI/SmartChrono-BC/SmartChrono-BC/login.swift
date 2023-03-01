@@ -41,6 +41,32 @@ struct login: View {
         UINotificationFeedbackGenerator().notificationOccurred(.error)
     }
     
+    //Switch view
+    func loginSwitchToMain(){
+        loginState = 0
+    }
+    func loginSwitchToSettings(){
+        loginState = 1
+    }
+    func loginSwitchToWorkingSettings(){
+        loginState = 2
+    }
+    func loginSwitchToErrorSettings(){
+        loginState = 3
+    }
+    func loginSwitchToSuccessSettings(){
+        loginState = 4
+    }
+    func loginSwitchToTryAuthenticate(){
+        loginState = 5
+    }
+    func loginSwitchToSuccessAuthenticate(){
+        loginState = 6
+    }
+    func loginSwitchToErrorAuthenticate(){
+        loginState = 7
+    }
+    
     var body: some View {
         
         //Login page
@@ -123,27 +149,34 @@ struct login: View {
                             })
                     }
                     
-                    Button(action: dummy){
+                    Button(action: loginSwitchToTryAuthenticate){
                         Text("LOGIN")
                             .fontWeight(.semibold)
                             .foregroundColor(Color.white)
                             .background(Color("Turquoise"))
                             .frame(width:315, height: 32)
-                            //.overlay(RoundedRectangle(cornerRadius: 8))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white, lineWidth: 0)
+                            )
                         
                     }
-                    .cornerRadius(8)
                     .background(Color("Turquoise"))
+                    .cornerRadius(12)
                     .padding(.top, 32)
                     
-                    Button(action: dummy){
+                    Button(action: loginSwitchToSettings ){
                         Image(systemName: "gear")
                             .foregroundColor(Color.white)
                             .background(Color("Greys"))
                             .frame(width: 315, height: 32)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white, lineWidth: 0)
+                            )
                     }
-                    .cornerRadius(16)
                     .background(Color("Greys"))
+                    .cornerRadius(12)
                     
                     Spacer()
                     
@@ -205,27 +238,35 @@ struct login: View {
                             
                         })
                     
-                    Button(action: dummy){
+                    Button(action: loginSwitchToWorkingSettings){
                         Text("SAVE")
                             .fontWeight(.semibold)
                             .foregroundColor(Color.white)
                             .background(Color("Turquoise"))
                             .frame(width:315, height: 32)
-                            .cornerRadius(16)
+                            .cornerRadius(12)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white, lineWidth: 0)
+                            )
                         
                     }
-                    .cornerRadius(16)
                     .background(Color("Turquoise"))
+                    .cornerRadius(12)
                     .padding(.top, 32)
                     
-                    Button(action: dummy){
+                    Button(action: loginSwitchToMain){
                         Image(systemName: "arrow.backward")
                             .foregroundColor(Color.white)
                             .background(Color("Greys"))
                             .frame(width: 315, height: 32)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white, lineWidth: 0)
+                            )
                     }
-                    .cornerRadius(16)
                     .background(Color("Greys"))
+                    .cornerRadius(12)
                     
                     Spacer()
                 }
@@ -268,6 +309,19 @@ struct login: View {
                     Text("Unable to save settings.")
                         .foregroundColor(Color.red)
                     
+                    Button(action: loginSwitchToMain){
+                        Image(systemName: "arrow.backward")
+                            .foregroundColor(Color.white)
+                            .background(Color("Greys"))
+                            .frame(width: 315, height: 32)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white, lineWidth: 0)
+                            )
+                    }
+                    .background(Color("Greys"))
+                    .cornerRadius(12)
+                    
                     Spacer()
                 }
                 .padding()
@@ -291,17 +345,21 @@ struct login: View {
                     
                     Spacer()
                     
-                    Button(action: dummy){
+                    Button(action: loginSwitchToMain){
                         Image(systemName: "arrow.backward")
                             .fontWeight(.semibold)
                             .foregroundColor(Color.white)
                             .background(Color("Greys"))
                             .frame(width:315, height: 32)
-                            .cornerRadius(16)
+                            .cornerRadius(12)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white, lineWidth: 0)
+                            )
                         
                     }
-                    .cornerRadius(16)
                     .background(Color("Greys"))
+                    .cornerRadius(12)
                     .padding(.top, 32)
                     
                     Spacer()
@@ -353,17 +411,21 @@ struct login: View {
                         .foregroundColor(Color.red)
                         .multilineTextAlignment(.center)
                     
-                    Button(action: dummy){
+                    Button(action: loginSwitchToMain){
                         Image(systemName: "arrow.backward")
                             .fontWeight(.semibold)
                             .foregroundColor(Color.white)
                             .background(Color("Greys"))
                             .frame(width:315, height: 32)
-                            .cornerRadius(16)
+                            .cornerRadius(12)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.white, lineWidth: 0)
+                            )
                         
                     }
-                    .cornerRadius(16)
                     .background(Color("Greys"))
+                    .cornerRadius(12)
                     .padding(.top, 32)
                     
                     Spacer()
