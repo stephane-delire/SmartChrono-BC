@@ -11,7 +11,6 @@ import Foundation
 class Settings: Codable {
     
     var url: String = ""
-    var login: String = ""
     var DB: String = ""
     
     
@@ -33,11 +32,9 @@ class Settings: Codable {
         
         if let data = try? Data(contentsOf: fileURL), let settings = try? JSONDecoder().decode(Settings.self, from: data) {
             self.url = settings.url
-            self.login = settings.login
             self.DB = settings.DB
         } else {
             self.url = ""
-            self.login = ""
             self.DB = ""
         }
     }
