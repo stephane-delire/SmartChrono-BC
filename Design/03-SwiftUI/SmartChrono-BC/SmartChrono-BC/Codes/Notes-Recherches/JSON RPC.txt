@@ -57,6 +57,9 @@ et c'est dans le body de la requete que l'on donne le JSON
 =====> Récupérer toutes les taches sur mon projets ->'project.task'
 {"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "project.task", "search_read", [["project_id","=",9]], []]}}
 
+=====> Récupérer les taches qui sont archivées et liées à mon projet (Polish!)
+{"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "project.task", "search_read", ["&",["project_id","=",9], ["active", "=", false]], []]}}
+
 =====> Création d'une tache sur un Projet(id:9)
 {"jsonrpc":"2.0", "params":{"service":"object", "method":"execute", "args": ["demo", "9", "QkkF2-TfbQ", "project.task", "create", [{"name":"Test JSON-Rpc", "project_id":9}]]}}
 	------> Retourne l'id de la tache nouvellement crée!
