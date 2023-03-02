@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct BtnBar: View {
+    
+    @StateObject var record = Record()
+    
     var body: some View {
+        
         TabView{
-            ViewChrono()
+            ViewChrono(record:record)
                 .tabItem {
                     Image(systemName:"timer")
                     Text("Chrono")
@@ -20,7 +24,7 @@ struct BtnBar: View {
                     Image(systemName:"icloud")
                     Text("Sync")
                 }
-            ViewRecord()
+            ViewRecord(records:record)
                 .tabItem{
                     Image(systemName:"folder")
                     Text("Record")

@@ -10,6 +10,8 @@ import Alamofire
 
 struct login: View {
     
+    @StateObject var record = Record()
+    
     @State var userLogin:String = ""
     @State var userPassword:String = ""
     @State var userSettingUrl:String = ""
@@ -570,7 +572,7 @@ struct login: View {
         // TabView - BtnBar integration
         if loginState == 8 {
             TabView{
-                ViewChrono()
+                ViewChrono(record:record)
                     .tabItem {
                         Image(systemName:"timer")
                         Text("Chrono")
@@ -580,7 +582,7 @@ struct login: View {
                         Image(systemName:"icloud")
                         Text("Sync")
                     }
-                ViewRecord()
+                ViewRecord(records:record)
                     .tabItem{
                         Image(systemName:"folder")
                         Text("Record")

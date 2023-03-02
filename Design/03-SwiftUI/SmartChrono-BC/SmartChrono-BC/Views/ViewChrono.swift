@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ViewChrono: View {
     
+    @ObservedObject var record : Record
+    
     @State var selectedProjectId:Int = 0
     @State var selectedTaskId = 0
     @State var selectedProjectName:String = ""
@@ -39,6 +41,7 @@ struct ViewChrono: View {
     
     let project = Project()
     let task = Task()
+    //
     
 //--------------------------------
     // Test function (delete when needed)
@@ -92,7 +95,7 @@ struct ViewChrono: View {
 
         let date = getTodaysDate()
         let id = generateRandomString(length: 8)
-        let record = Record()
+        //@ObservedObject var record = Record()
         
         //Save
         record.addRecord(date: date, id: id, duration: duration, project: selectedProjectId, task: selectedTaskId)
@@ -153,7 +156,7 @@ struct ViewChrono: View {
 
         let date = getTodaysDate()
         let id = generateRandomString(length: 8)
-        let record = Record()
+        
         
         //Modification de duration comme c'est manuel
         let HH = manualSelectedHours * 3600
@@ -691,6 +694,6 @@ struct ViewChrono: View {
 
 struct ViewChrono_Previews: PreviewProvider {
     static var previews: some View {
-        ViewChrono()
+        ViewChrono(record: Record())
     }
 }

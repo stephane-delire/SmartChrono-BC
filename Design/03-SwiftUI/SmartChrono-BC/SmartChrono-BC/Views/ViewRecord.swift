@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ViewRecord: View {
-    @State var records = Record()
+    @ObservedObject var records: Record
     
+
     //Test function delete when needed
     func test(index:Int){
-        print(records.data[index])
     }
+
     
     var body: some View {
         NavigationView{
@@ -28,6 +29,7 @@ struct ViewRecord: View {
                 }
                 .navigationTitle("Records")
             } else {
+                
                 VStack{
                     ForEach(records.data.indices, id: \.self) { index in
                         HStack {
@@ -38,45 +40,25 @@ struct ViewRecord: View {
                             
                             Button(action: {
                                 records.data.remove(at: index)
+                                records.saveData()
                             }){
                                 Image(systemName: "trash")
                             }
                         }
-                        .onAppear{test(index: index)}
+                        .onAppear{}
                         .padding()
                     }
+                 
                 }
                 .navigationTitle("Records")
             }
         }
+        .onAppear{}
     }
 }
 
 struct ViewRecord_Previews: PreviewProvider {
     static var previews: some View {
-        ViewRecord()
+        ViewRecord(records: Record())
     }
 }
-
-
-/*
- struct RecordsView: View {
-     @State var records = Records()
-     
-     var body: some View {
-         if records.data.isEmpty {
-             Text("No records")
-         } else {
-             ForEach(records.data.indices, id: \.self) { index in
-                 HStack {
-                     Text("Record \(index + 1): \(records.data[index])")
-                     Button("Delete") {
-                         records.data.remove(at: index)
-                     }
-                 }
-             }
-         }
-     }
- }
-
- */

@@ -7,9 +7,9 @@
 
 import Foundation
 
-class Record {
+class Record: ObservableObject {
     
-    var data: [[String: Any]]
+    @Published var data: [[String: Any]]
     private let filename = "recordData.json"
     private let fileManager = FileManager.default
     
