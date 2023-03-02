@@ -577,7 +577,7 @@ struct login: View {
                         Image(systemName:"timer")
                         Text("Chrono")
                     }
-                ViewSync()
+                ViewSync(record:record)
                     .tabItem{
                         Image(systemName:"icloud")
                         Text("Sync")
