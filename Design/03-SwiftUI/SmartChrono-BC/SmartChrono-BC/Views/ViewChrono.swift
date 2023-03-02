@@ -11,11 +11,14 @@ struct ViewChrono: View {
     
     @State var selectedProjectId:Int = 0
     @State var selectedTaskId = 0
+    @State var selectedProjectName:String = ""
+    @State var selectedTaskName:String = ""
     
     @State var duration:Int = 0
     @State var displayDuration:String = "00:00:00"
     @State var chronoRunning:Bool = false
     @State var threadChronoLock:Bool = false
+    @State var threadDisplayName:Bool = false
     
     // Var for manual entry
     @State var manualSelectedHours:Int = 0
@@ -36,12 +39,11 @@ struct ViewChrono: View {
     
     let project = Project()
     let task = Task()
-
     
 //--------------------------------
     // Test function (delete when needed)
     func test(){
-        
+        print(task.taskData)
     }
     
     //Switch to startUp
@@ -206,6 +208,24 @@ struct ViewChrono: View {
             selectedTaskId = taskFromProject.first!.key
         }
     }
+    
+    func chronoDisplayNamesFromId(){
+        // Change le nom affiché en haut des vues chrono
+        // En fonction des id selectionnés
+        let arrayProject = project.projectData.map {($0.key, $0.value)}
+        let arrayTask = task.taskData.map{($0.key, $0.value.first!.key, $0.value.first!.value)}
+        
+        for p in arrayProject {
+            if p.0 == selectedProjectId {
+                selectedProjectName = p.1
+            }
+        }
+        for t in arrayTask {
+            if t.0 == selectedTaskId {
+                selectedTaskName = t.1
+            }
+        }
+    }
 //--------------------------------
     //CHRONO engine
     func chronoEngine() {
@@ -277,6 +297,9 @@ struct ViewChrono: View {
                             }
                         }
                     }
+                    .onChange(of: selectedTaskId){_ in
+                        chronoDisplayNamesFromId()
+                    }
                     
                     
                     //Button to start Chrono
@@ -304,14 +327,14 @@ struct ViewChrono: View {
             if chronoState == 1 {
                 Group{
                     HStack{
-                        Text("Project ID : ")
+                        Text("Project : ")
                             
-                        Text(String(selectedProjectId))
+                        Text(String(selectedProjectName))
                             .foregroundColor(Color.accentColor)
                     }
                     HStack{
-                        Text("Task ID : ")
-                        Text(String(selectedTaskId))
+                        Text("Task : ")
+                        Text(String(selectedTaskName))
                             .foregroundColor(Color.accentColor)
                     }
                     
@@ -339,14 +362,14 @@ struct ViewChrono: View {
             if chronoState == 2 {
                 Group{
                     HStack{
-                        Text("Project ID : ")
+                        Text("Project : ")
                             
-                        Text(String(selectedProjectId))
+                        Text(String(selectedProjectName))
                             .foregroundColor(Color.accentColor)
                     }
                     HStack{
-                        Text("Task ID : ")
-                        Text(String(selectedTaskId))
+                        Text("Task : ")
+                        Text(String(selectedTaskName))
                             .foregroundColor(Color.accentColor)
                     }
                     
@@ -373,14 +396,14 @@ struct ViewChrono: View {
             if chronoState == 3 {
                 Group{
                     HStack{
-                        Text("Project ID : ")
+                        Text("Project : ")
                             
-                        Text(String(selectedProjectId))
+                        Text(String(selectedProjectName))
                             .foregroundColor(Color.accentColor)
                     }
                     HStack{
-                        Text("Task ID : ")
-                        Text(String(selectedTaskId))
+                        Text("Task : ")
+                        Text(String(selectedTaskName))
                             .foregroundColor(Color.accentColor)
                     }
                     
@@ -552,14 +575,14 @@ struct ViewChrono: View {
                         VStack{
                             
                             HStack{
-                                Text("Project ID : ")
-                                
-                                Text(String(selectedProjectId))
+                                Text("Project : ")
+                                    
+                                Text(String(selectedProjectName))
                                     .foregroundColor(Color.accentColor)
                             }
                             HStack{
-                                Text("Task ID : ")
-                                Text(String(selectedTaskId))
+                                Text("Task : ")
+                                Text(String(selectedTaskName))
                                     .foregroundColor(Color.accentColor)
                             }
                             
@@ -660,7 +683,9 @@ struct ViewChrono: View {
             
             
         }//END Stack
-        .onAppear{chronoEngine()}
+        .onAppear{
+            chronoEngine()
+        }
     }
 }
 
