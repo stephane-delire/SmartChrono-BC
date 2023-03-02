@@ -283,7 +283,7 @@ func launchSync() {
                 "service": "object",
                 "method": "execute",
                 "args": [settings.DB, userID as Any, userPassword, "project.task", "search_read",
-                         [],
+                         ["active", "=", true],
                          ["name", "project_id"]
                         ]
             ]
@@ -295,9 +295,6 @@ func launchSync() {
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
-                    //print("+++++")
-                    //print(response.value)
-                    //print("+++++")
                     if let json = value as? [String: Any], let resultArray = json["result"] as? [[String:Any]] {
                         for item in resultArray {
                             if let id = item["id"] as? Int, let name = item["name"] as? String, let respProject = item["project_id"] as? [Any], let projectId = respProject.first as? Int {
