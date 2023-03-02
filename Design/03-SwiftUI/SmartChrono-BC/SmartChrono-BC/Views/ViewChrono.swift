@@ -52,32 +52,27 @@ struct ViewChrono: View {
         //Switch view
         chronoState = 1
     }
-    
     //Launch Chrono & switch view
     func chronoLaunch(){
         print("Start running chrono")
         chronoState = 2
         chronoRunning = true
     }
-    
     //Pause chrono & switch view
     func chronoPause(){
         chronoRunning = false
         chronoState = 3
     }
-    
     //Switch to ask save
     func chronoSwitchToAskSave() {
         chronoRunning = false
         chronoState = 6
     }
-    
     //Switch to ask delete
     func chronoSwitchToAskDelete(){
         chronoRunning = false
         chronoState = 4
     }
-    
     //Save time
     func chronoSave(){
         //Fonction pour générer une chaien random
@@ -109,7 +104,6 @@ struct ViewChrono: View {
         duration = 0
         chronoState = 7
     }
-
     //Delete time
     func chronoDelete(){
         //haptic
@@ -121,26 +115,25 @@ struct ViewChrono: View {
         displayDuration = "00:00:00"
         chronoState = 5
     }
-    
     //Back to 0
     func chronoBackTo0() {
+        //reload task & project
+        project.reload()
+        task.reload()
         //Reset to 0
         duration = 0
         displayDuration = "00:00:00"
         
         chronoState = 0
     }
-    
     //Switch to manual entry
     func chronoSwitchToManualEntry(){
         chronoState = 8
     }
-    
     //Ask save manual
     func chronoAskSaveManual(){
         chronoState = 9
     }
-    
     //Save manual entry
     func chronoSaveManual() {
         //Fonction pour générer une chaine random
@@ -176,7 +169,43 @@ struct ViewChrono: View {
         duration = 0
         chronoState = 0
     }
-    
+    //Reload project & task
+    func chronoReloadProjectTask(){
+        project.reload()
+        task.reload()
+    }
+    // Choose default projectID
+    func chronoChooseDefaultID(){
+        let arrayProject = project.projectData.map {($0.key, $0.value)}
+        let arrayTask = task.taskData.map{($0.key, $0.value.first!.key, $0.value.first!.value)}
+        if arrayProject.count > 0 {
+            selectedProjectId = arrayProject[arrayProject.endIndex - 1].0
+        }
+        if arrayTask.count > 0 {
+            //Need to retrieve task from selectedProject
+            var taskFromProject:[Int:String] = [:]
+            for task in arrayTask {
+                if task.2 == selectedProjectId {
+                    taskFromProject[task.0] = task.1
+                }
+            }
+            selectedTaskId = taskFromProject.first!.key
+        }
+    }
+    // Choose default taskID
+    func chronoChooseDefaultTask(){
+        let arrayTask = task.taskData.map{($0.key, $0.value.first!.key, $0.value.first!.value)}
+        if arrayTask.count > 0 {
+            //Need to retrieve task from selectedProject
+            var taskFromProject:[Int:String] = [:]
+            for task in arrayTask {
+                if task.2 == selectedProjectId {
+                    taskFromProject[task.0] = task.1
+                }
+            }
+            selectedTaskId = taskFromProject.first!.key
+        }
+    }
 //--------------------------------
     //CHRONO engine
     func chronoEngine() {
@@ -214,20 +243,26 @@ struct ViewChrono: View {
     var body: some View {
         //Main task
         VStack{
-            
             //Ask Project & task
             if chronoState == 0 {
                 Group{
+                    
+                    // Transform Json to Tuple array (needed for ForEach)
+                    let arrayProject = project.projectData.map {($0.key, $0.value)}
+                    let arrayTask = task.taskData.map{($0.key, $0.value.first!.key, $0.value.first!.value)}
+                    
                     //Picker for project
                     Text("Project")
                         .font(.title)
                     Picker("Project", selection: $selectedProjectId){
-                        //Transform JSON to tuple Array
-                        let arrayProject = project.projectData.map {($0.key, $0.value)}
                         ForEach(arrayProject.sorted(by: { $0 < $1 }), id: \.0){ key, value in
                             Text(value).tag(key)
                         }
                     }
+                    .onChange(of: selectedProjectId){ _ in
+                        chronoChooseDefaultTask()
+                    }
+                    
                     
                     //Picker for task
                     if(selectedProjectId != 0){
@@ -235,8 +270,6 @@ struct ViewChrono: View {
                             .font(.title)
                     }
                     Picker("Task", selection: $selectedTaskId){
-                        //Transform JSON to tuple Array
-                        let arrayTask = task.taskData.map{($0.key, $0.value.first!.key, $0.value.first!.value)}
                         //Filter
                         ForEach(arrayTask, id: \.0){key, name, fk in
                             if (fk == selectedProjectId){
@@ -244,6 +277,7 @@ struct ViewChrono: View {
                             }
                         }
                     }
+                    
                     
                     //Button to start Chrono
                     if (selectedTaskId != 0 && selectedProjectId != 0){
@@ -259,6 +293,10 @@ struct ViewChrono: View {
                         .clipShape(Circle())
                         .padding()
                     }
+                }
+                .onAppear{
+                    chronoReloadProjectTask()
+                    chronoChooseDefaultID()
                 }
             }
             

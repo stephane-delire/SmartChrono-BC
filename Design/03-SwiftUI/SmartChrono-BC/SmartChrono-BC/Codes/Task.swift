@@ -52,4 +52,17 @@ class Task {
                 }
             }
     }
+    
+    func reload() {
+        if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("task.json") {
+            do {
+                let jsonData = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                self.taskData = try decoder.decode([Int: [String: Int]].self, from: jsonData)
+            } catch {
+                // Si on ne parvient pas à charger les données, on crée un fichier JSON vide
+                self.saveTaskData()
+            }
+        }
+    }
 }

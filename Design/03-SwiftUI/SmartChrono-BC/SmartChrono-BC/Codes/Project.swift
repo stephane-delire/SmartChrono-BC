@@ -43,5 +43,19 @@ class Project {
     func add(_ key:Int, _ value:String) {
         self.projectData[key] = value
     }
+    
+    func reload(){
+        if let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("project.json") {
+            do {
+                let jsonData = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                self.projectData = try decoder.decode([Int: String].self, from: jsonData)
+            } catch {
+                // Si on ne parvient pas à charger les données, on crée un fichier JSON vide
+                print("Project --- : unable to open file : project.json")
+                self.saveProjectData()
+            }
+        }
+    }
 }
 
