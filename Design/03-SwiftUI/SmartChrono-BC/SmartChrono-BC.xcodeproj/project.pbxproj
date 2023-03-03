@@ -51,6 +51,7 @@
 		9776B3CA29A2B1330021E2E2 /* ViewRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecord.swift; sourceTree = "<group>"; };
 		977F333C29AA824E00671B8B /* ViewChrono.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewChrono.swift; sourceTree = "<group>"; };
 		97872DE729AE729C00FD5E36 /* login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = login.swift; sourceTree = "<group>"; };
+		979749BD29B26CD000961E5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		97C6749F29AFBBB4002CC8BE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +95,7 @@
 		9776B3AA29A2309C0021E2E2 /* SmartChrono-BC */ = {
 			isa = PBXGroup;
 			children = (
+				979749BD29B26CD000961E5D /* Info.plist */,
 				9776B3C329A24DA60021E2E2 /* Codes */,
 				9776B3BB29A233C50021E2E2 /* Views */,
 				9776B3B929A231120021E2E2 /* BtnBar.swift */,
@@ -380,8 +382,10 @@
 				DEVELOPMENT_TEAM = 2SP92KLCJ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SmartChrono-BC/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = SmartChrono;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Use to connect directly to Odoo server without password. (You need to login at least once beforehand without faceID).";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -412,8 +416,10 @@
 				DEVELOPMENT_TEAM = 2SP92KLCJ8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SmartChrono-BC/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = SmartChrono;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Use to connect directly to Odoo server without password. (You need to login at least once beforehand without faceID).";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

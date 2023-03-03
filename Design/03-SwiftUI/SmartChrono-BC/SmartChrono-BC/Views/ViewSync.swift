@@ -40,6 +40,13 @@ struct ViewSync: View {
     // 2 : Success Sync
     // 3 : Error Sync
     
+    func hapticVibrateSuccess(){
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+    func hapticVibrateError(){
+        UINotificationFeedbackGenerator().notificationOccurred(.error)
+    }
+    
     func syncBackTo0(){
         syncState = 0
         syncIsDone = false
@@ -319,6 +326,7 @@ struct ViewSync: View {
                     syncRecordSend = true
                     syncShowProgress = false
                     syncIsDone = true
+                    hapticVibrateSuccess()
                     print("===== End sync =====")
                 }
             }

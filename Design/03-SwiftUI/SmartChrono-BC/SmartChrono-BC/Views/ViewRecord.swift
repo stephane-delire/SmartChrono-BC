@@ -11,8 +11,11 @@ struct ViewRecord: View {
     @ObservedObject var records: Record
     
 
-    //Test function delete when needed
-    func test(index:Int){
+    func hapticVibrateSuccess(){
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+    func hapticVibrateError(){
+        UINotificationFeedbackGenerator().notificationOccurred(.error)
     }
 
     
@@ -41,6 +44,7 @@ struct ViewRecord: View {
                             Button(action: {
                                 records.data.remove(at: index)
                                 records.saveData()
+                                hapticVibrateError()
                             }){
                                 Image(systemName: "trash")
                             }

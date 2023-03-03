@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Alamofire
+import LocalAuthentication
 
 struct login: View {
     
@@ -102,6 +103,14 @@ struct login: View {
     }
     // Authentication
     func tryToAuthenticate(){
+        
+        //Check for faceId
+        if (userPassword == "" && user.password != ""){
+            AuthenticateWithFaceID()
+            return
+            // return beacause func will be recall by faceID func
+        }
+        
         // Saving User's data
         user.login = userLogin
         user.password = userPassword
@@ -150,6 +159,36 @@ struct login: View {
                     return
                 }
             }
+    }
+    
+    //Face ID
+    func AuthenticateWithFaceID(){
+    // https://www.devtechie.com/community/public/posts/145824-user-authentication-with-face-id-touch-id-in-swiftui
+        var error: NSError?
+        let laContext = LAContext()
+        
+        if laContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                    let reason = "Need access to authenticate"
+                    
+                    laContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, error in
+                        DispatchQueue.main.async {
+                            if success {
+                                print("FaceID sucess")
+                                hapticVibrateSuccess()
+                                userPassword = user.password
+                                tryToAuthenticate()
+                            } else {
+                                hapticVibrateError()
+                                print("FaceID error")
+                                print(error?.localizedDescription ?? "error")
+                                loginState = 0
+                            }
+                        }
+                    }
+                } else {
+                    print("FaceID is unable on device")
+                    loginState = 0
+                }
     }
     
     var body: some View {
