@@ -1,0 +1,40 @@
+@startuml
+title Ouverture
+
+actor utilisateur
+participant application
+database "stockage interne"
+
+group Réglages
+autonumber 1.0
+utilisateur ->o application : <b>[settings]</b>
+application -> utilisateur : Affiche l'écran settings
+utilisateur -> utilisateur : Modifie les réglages
+utilisateur ->o application : Sauvegarde
+application -> "stockage interne" : Sauvegarde
+application -> utilisateur : Affiche confirmation sauvegarde
+end
+
+group Authentification [Sans mot de passe]
+autonumber 2.0
+utilisateur ->o application : <b>[login]</b> sans mot de passe
+application <-> "stockage interne" : Vérifie si un mot de passe\nest enregistré
+application -> utilisateur : FaceID
+utilisateur -> application : FaceID réussi
+application -> serveur : Tentative d'authentification
+serveur -> application : Récupération de l'id utilisateur
+application -> "stockage interne" : Enregistrement de l'id
+application -> utilisateur : Affiche l'écran hub
+end
+
+group Authentification [Avec mot de passe]
+autonumber 3.0
+utilisateur ->o application : <b>[login]</b> avec mot de passe
+application -> serveur : Tentative d'authentification
+serveur -> application : Récupération de l'id utilisateur
+application -> "stockage interne" : Enregistrement de l'id
+application -> "stockage interne" : Enregistrement du mot de passe
+application -> utilisateur : Affiche l'écran hub
+end
+@enduml
+

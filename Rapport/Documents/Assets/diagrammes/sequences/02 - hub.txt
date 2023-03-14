@@ -1,0 +1,26 @@
+@startuml
+title Hub
+actor utilisateur
+
+group Chrono
+utilisateur ->o application : Chrono
+application -> utilisateur : lance l'écran <b>Chrono</b>
+end
+
+group Sync
+utilisateur ->o application : Sync
+application -> utilisateur : lance l'écran <b>Sync</b>
+end
+
+group Enregistrement
+utilisateur ->o application : Enregistrement
+application -> utilisateur : lance l'écran <b>Enregistrement</b>
+end
+
+group Déconnexion
+utilisateur ->o application : Déconnexion
+application -> utilisateur : relance l'écran de <b>Login</b>
+end
+
+@enduml
+
