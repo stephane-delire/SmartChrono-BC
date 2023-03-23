@@ -1,0 +1,31 @@
+@startuml
+title Sync
+actor utilisateur
+participant application
+database "mémoire interne" as memory
+queue "Serveur Odoo" as server
+
+group 1. Authentification
+application <-> server : tentative d'authentification\n(données pré sauvegardées)
+server -> application : récupération de l'id utilisateur
+end
+
+group 2. Projets & taches
+application <-> server : récupération de la liste des projets\nvia JSON-rpc
+application -> memory : enregistrement par écrasement\nvia l'objet Project de la liste des projets
+application -> utilisateur : confirmation de l'enregistrement \ndes projets
+application <-> server : récupération de la liste des taches\nvia JSON-rpc
+application -> memory : enregistrement par écrasement\nvia l'objet Task de la liste des taches
+application -> utilisateur : confirmation de l'enregistrement \ndes taches
+end
+
+group 3. Envoie des données de temps enregistrées
+application <-> memory : chargement des données enregistrée\nvia l'objet Record
+application -> application : pour chaque données (for loop)
+application -> server : envoie des données via JSON-rpc
+server -> application : retourne un identifiant, confirmant la création
+...Requêtes asynchrone\n attende du retour du meme nombre\nde requêtes que de données envoyées...
+application -> memory : efface tout les enregistrements locaux
+application -> utilisateur : confirmation de la synchronisation
+end
+@enduml

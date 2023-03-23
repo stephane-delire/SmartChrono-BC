@@ -1,0 +1,35 @@
+@startuml
+title Chrono
+actor utilisateur
+
+application <-> "mémoire interne" : charge via les objets project et task\nla liste des projets et taches liées
+application -> utilisateur : propose la liste des projets \net taches liées
+utilisateur ->o application : sélectionne un projet
+application -> utilisateur : propose une liste de taches
+utilisateur ->o application : sélectionne une tache liée
+utilisateur ->o application : démarre le chrono
+
+group Chrono en marche
+application --> application : compte le temps
+utilisateur ->o application : pause
+application -> application : arrete de compter, et affiche \nune série de bouton [play,save,delete]
+utilisateur ->o application : play
+application -> application : recommence à compter le temps
+utilisateur ->o application : save
+application -> utilisateur : demande confirmation de sauvegarde
+application -> application : sauvegarde en interne,\net retourne à l'écran initial
+utilisateur ->o application : delete
+application -> utilisateur : demande confirmation de suppression
+application -> application : retourne à l'écran initial
+
+end
+
+group Sauvegarde
+application -> "mémoire interne" : Ouvre le fichier "record"\n via l'objet record
+"mémoire interne" --> "mémoire interne" : Charge et convertit dynamiquement \nle fichier "json" en mémoire ram
+application -> "mémoire interne" : Enregistre les données de l'enregistrement\nen append dans la mémoire
+"mémoire interne" --> "mémoire interne" : reconvertit de la mémoire en format "json"\net enregistre dans l'appareil
+application -> utilisateur : affiche une confirmation de sauvegarde
+
+end
+@enduml
