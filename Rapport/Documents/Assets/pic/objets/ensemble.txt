@@ -1,0 +1,47 @@
+@startuml
+class User {
+{field} login : String
+{field} password : String
+{method} init()
+{method} loadUser()
+{method} saveUser()
+{method} reload()
+}
+
+class Settings {
+{field} url : String
+{field} db : String
+{method} init()
+{method} loadSettings()
+{method} saveSettings()
+{method} reload()
+}
+
+class Project {
+{field} projectData : [Int : String]
+{method} init()
+{method} saveProjectData()
+{method} flush()
+{method} add(_key:Int, _value:String)
+{method} reload()
+}
+
+class Task {
+{field} taskData : [int: [String:Int]]
+{method} init()
+{method} saveTaskData()
+{method} flush()
+{method} add(_id:Int, _taskName:String, _projectId:Int)
+{method} printData()
+{method} reload()
+}
+
+class Record {
+{field} filename : String
+{method} init()
+{method} addRecord(date:String, id:String, duration:Int, project:Int, task:Int)
+{method} count()
+{method} saveData()
+{method} flush()
+}
+@enduml
