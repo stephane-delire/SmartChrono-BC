@@ -1,18 +1,19 @@
 @startuml
-
 left to right direction
 
 actor utilisateur
 actor responsable
 
 rectangle Application {
-usecase "Enregistrement de temps" as UC1
-usecase "Synchronisation sur Odoo" as UC2
+collections "Authentification" as auth
+collections "Synchronisation sur Odoo" as UC2
+collections "Enregistrement de temps" as UC1
+
 }
 
 rectangle Odoo {
-queue "projets" as pj
-queue "taches" as tc
+collections "Créer projets" as pj
+collections "Créer taches" as tc
 usecase "Comptabilité de temps" as UC3
 usecase "Facturation" as UC4
 }
@@ -20,15 +21,15 @@ usecase "Facturation" as UC4
 utilisateur --> UC1
 utilisateur --> UC2
 
-UC2 --> tc
+
 tc --> pj
 pj --> UC3
 UC3 --> UC4
+UC2 <--> Odoo
 
 responsable --> UC4
 responsable <-> UC3
 responsable -> pj
 responsable -> tc
-
-
+auth <--> Odoo
 @enduml
